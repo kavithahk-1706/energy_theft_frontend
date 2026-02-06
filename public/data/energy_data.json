@@ -1,0 +1,2702 @@
+[
+    {
+        "day": 1,
+        "area_id": 1,
+        "energy_consumed": 127.45,
+        "voltage": 229.31,
+        "current": 3.89,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 1,
+        "area_id": 2,
+        "energy_consumed": 124.78,
+        "voltage": 237.9,
+        "current": 5.77,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 1,
+        "area_id": 3,
+        "energy_consumed": 112.96,
+        "voltage": 232.71,
+        "current": 4.43,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 1,
+        "area_id": 4,
+        "energy_consumed": 106.14,
+        "voltage": 221.38,
+        "current": 4.44,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 1,
+        "area_id": 5,
+        "energy_consumed": 104.81,
+        "voltage": 231.57,
+        "current": 4.3,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 2,
+        "area_id": 1,
+        "energy_consumed": 87.91,
+        "voltage": 230.34,
+        "current": 3.58,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 2,
+        "area_id": 2,
+        "energy_consumed": 111.83,
+        "voltage": 230.55,
+        "current": 4.4,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 2,
+        "area_id": 3,
+        "energy_consumed": 325.93,
+        "voltage": 239.26,
+        "current": 4.99,
+        "anomaly": -1,
+        "theft_detected": "Yes"
+    },
+    {
+        "day": 2,
+        "area_id": 4,
+        "energy_consumed": 340.82,
+        "voltage": 231.95,
+        "current": 3.73,
+        "anomaly": -1,
+        "theft_detected": "Yes"
+    },
+    {
+        "day": 2,
+        "area_id": 5,
+        "energy_consumed": 136.38,
+        "voltage": 223.36,
+        "current": 5.2,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 3,
+        "area_id": 1,
+        "energy_consumed": 356.85,
+        "voltage": 224.95,
+        "current": 3.42,
+        "anomaly": -1,
+        "theft_detected": "Yes"
+    },
+    {
+        "day": 3,
+        "area_id": 2,
+        "energy_consumed": 131.61,
+        "voltage": 227.31,
+        "current": 5.34,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 3,
+        "area_id": 3,
+        "energy_consumed": 93.55,
+        "voltage": 232.91,
+        "current": 5.89,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 3,
+        "area_id": 4,
+        "energy_consumed": 380.2,
+        "voltage": 225.8,
+        "current": 4.69,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 3,
+        "area_id": 5,
+        "energy_consumed": 124.97,
+        "voltage": 234.88,
+        "current": 4.82,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 4,
+        "area_id": 1,
+        "energy_consumed": 113.84,
+        "voltage": 234.06,
+        "current": 6.36,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 4,
+        "area_id": 2,
+        "energy_consumed": 118.92,
+        "voltage": 235.02,
+        "current": 5.97,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 4,
+        "area_id": 3,
+        "energy_consumed": 131.93,
+        "voltage": 229.82,
+        "current": 6.56,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 4,
+        "area_id": 4,
+        "energy_consumed": 382.88,
+        "voltage": 222.91,
+        "current": 6.04,
+        "anomaly": -1,
+        "theft_detected": "Yes"
+    },
+    {
+        "day": 4,
+        "area_id": 5,
+        "energy_consumed": 133.55,
+        "voltage": 230.1,
+        "current": 6.48,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 5,
+        "area_id": 1,
+        "energy_consumed": 112.23,
+        "voltage": 228.94,
+        "current": 4.57,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 5,
+        "area_id": 2,
+        "energy_consumed": 127.52,
+        "voltage": 235.79,
+        "current": 4.47,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 5,
+        "area_id": 3,
+        "energy_consumed": 127.7,
+        "voltage": 236.86,
+        "current": 5.18,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 5,
+        "area_id": 4,
+        "energy_consumed": 115.36,
+        "voltage": 233.37,
+        "current": 4.61,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 5,
+        "area_id": 5,
+        "energy_consumed": 98.05,
+        "voltage": 216.72,
+        "current": 5.35,
+        "anomaly": -1,
+        "theft_detected": "Yes"
+    },
+    {
+        "day": 6,
+        "area_id": 1,
+        "energy_consumed": 114.07,
+        "voltage": 228.55,
+        "current": 4.84,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 6,
+        "area_id": 2,
+        "energy_consumed": 126.06,
+        "voltage": 225.28,
+        "current": 6.4,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 6,
+        "area_id": 3,
+        "energy_consumed": 119.72,
+        "voltage": 221.63,
+        "current": 5.06,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 6,
+        "area_id": 4,
+        "energy_consumed": 369.11,
+        "voltage": 228.7,
+        "current": 4.43,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 6,
+        "area_id": 5,
+        "energy_consumed": 113.68,
+        "voltage": 235.71,
+        "current": 5.75,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 7,
+        "area_id": 1,
+        "energy_consumed": 131.87,
+        "voltage": 225.45,
+        "current": 6.41,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 7,
+        "area_id": 2,
+        "energy_consumed": 140.88,
+        "voltage": 225.05,
+        "current": 4.43,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 7,
+        "area_id": 3,
+        "energy_consumed": 121.49,
+        "voltage": 227.48,
+        "current": 5.01,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 7,
+        "area_id": 4,
+        "energy_consumed": 114.52,
+        "voltage": 224.69,
+        "current": 5.47,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 7,
+        "area_id": 5,
+        "energy_consumed": 106.21,
+        "voltage": 237.75,
+        "current": 4.61,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 8,
+        "area_id": 1,
+        "energy_consumed": 106.72,
+        "voltage": 234.07,
+        "current": 3.77,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 8,
+        "area_id": 2,
+        "energy_consumed": 123.41,
+        "voltage": 236.54,
+        "current": 4.68,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 8,
+        "area_id": 3,
+        "energy_consumed": 116.91,
+        "voltage": 231.3,
+        "current": 5.78,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 8,
+        "area_id": 4,
+        "energy_consumed": 101.45,
+        "voltage": 223.4,
+        "current": 5.62,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 8,
+        "area_id": 5,
+        "energy_consumed": 361.72,
+        "voltage": 226.43,
+        "current": 6.87,
+        "anomaly": -1,
+        "theft_detected": "Yes"
+    },
+    {
+        "day": 9,
+        "area_id": 1,
+        "energy_consumed": 127.11,
+        "voltage": 233.67,
+        "current": 4.05,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 9,
+        "area_id": 2,
+        "energy_consumed": 108.73,
+        "voltage": 224.35,
+        "current": 5.96,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 9,
+        "area_id": 3,
+        "energy_consumed": 126.19,
+        "voltage": 225.66,
+        "current": 5.15,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 9,
+        "area_id": 4,
+        "energy_consumed": 99.45,
+        "voltage": 226.14,
+        "current": 4.92,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 9,
+        "area_id": 5,
+        "energy_consumed": 125.12,
+        "voltage": 236.05,
+        "current": 5.54,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 10,
+        "area_id": 1,
+        "energy_consumed": 161.02,
+        "voltage": 230.47,
+        "current": 5.63,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 10,
+        "area_id": 2,
+        "energy_consumed": 107.14,
+        "voltage": 230.21,
+        "current": 4.86,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 10,
+        "area_id": 3,
+        "energy_consumed": 118.14,
+        "voltage": 233.7,
+        "current": 4.15,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 10,
+        "area_id": 4,
+        "energy_consumed": 97.28,
+        "voltage": 225.37,
+        "current": 4.49,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 10,
+        "area_id": 5,
+        "energy_consumed": 130.65,
+        "voltage": 230.46,
+        "current": 4.12,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 11,
+        "area_id": 1,
+        "energy_consumed": 122.31,
+        "voltage": 235.29,
+        "current": 5.05,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 11,
+        "area_id": 2,
+        "energy_consumed": 133.09,
+        "voltage": 235.33,
+        "current": 3.62,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 11,
+        "area_id": 3,
+        "energy_consumed": 105.93,
+        "voltage": 231.52,
+        "current": 5.26,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 11,
+        "area_id": 4,
+        "energy_consumed": 120.36,
+        "voltage": 234.36,
+        "current": 5.57,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 11,
+        "area_id": 5,
+        "energy_consumed": 137.03,
+        "voltage": 231.16,
+        "current": 5.18,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 12,
+        "area_id": 1,
+        "energy_consumed": 289.97,
+        "voltage": 227.57,
+        "current": 5.08,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 12,
+        "area_id": 2,
+        "energy_consumed": 154.72,
+        "voltage": 220.66,
+        "current": 4.59,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 12,
+        "area_id": 3,
+        "energy_consumed": 331.12,
+        "voltage": 235.44,
+        "current": 5.06,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 12,
+        "area_id": 4,
+        "energy_consumed": 103.83,
+        "voltage": 232.75,
+        "current": 3.73,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 12,
+        "area_id": 5,
+        "energy_consumed": 155.84,
+        "voltage": 239.22,
+        "current": 2.97,
+        "anomaly": -1,
+        "theft_detected": "Yes"
+    },
+    {
+        "day": 13,
+        "area_id": 1,
+        "energy_consumed": 122.8,
+        "voltage": 227.78,
+        "current": 3.33,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 13,
+        "area_id": 2,
+        "energy_consumed": 108.42,
+        "voltage": 238.31,
+        "current": 4.53,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 13,
+        "area_id": 3,
+        "energy_consumed": 110.2,
+        "voltage": 234.73,
+        "current": 6.27,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 13,
+        "area_id": 4,
+        "energy_consumed": 125.66,
+        "voltage": 238.26,
+        "current": 3.48,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 13,
+        "area_id": 5,
+        "energy_consumed": 112.74,
+        "voltage": 228.81,
+        "current": 6.87,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 14,
+        "area_id": 1,
+        "energy_consumed": 119.71,
+        "voltage": 225.34,
+        "current": 4.75,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 14,
+        "area_id": 2,
+        "energy_consumed": 101.28,
+        "voltage": 237.72,
+        "current": 6.32,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 14,
+        "area_id": 3,
+        "energy_consumed": 118.07,
+        "voltage": 227.67,
+        "current": 6.16,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 14,
+        "area_id": 4,
+        "energy_consumed": 120.15,
+        "voltage": 228.99,
+        "current": 5.06,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 14,
+        "area_id": 5,
+        "energy_consumed": 129.71,
+        "voltage": 230.63,
+        "current": 6.59,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 15,
+        "area_id": 1,
+        "energy_consumed": 101.43,
+        "voltage": 233.43,
+        "current": 5.07,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 15,
+        "area_id": 2,
+        "energy_consumed": 126.59,
+        "voltage": 229.46,
+        "current": 5.28,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 15,
+        "area_id": 3,
+        "energy_consumed": 385.4,
+        "voltage": 227.68,
+        "current": 4.38,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 15,
+        "area_id": 4,
+        "energy_consumed": 114.67,
+        "voltage": 234.5,
+        "current": 5.31,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 15,
+        "area_id": 5,
+        "energy_consumed": 132.19,
+        "voltage": 233.15,
+        "current": 5.55,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 16,
+        "area_id": 1,
+        "energy_consumed": 109.35,
+        "voltage": 229.9,
+        "current": 5.12,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 16,
+        "area_id": 2,
+        "energy_consumed": 139.16,
+        "voltage": 227.04,
+        "current": 6.55,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 16,
+        "area_id": 3,
+        "energy_consumed": 113.41,
+        "voltage": 236.53,
+        "current": 5.02,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 16,
+        "area_id": 4,
+        "energy_consumed": 130.23,
+        "voltage": 228.45,
+        "current": 4.73,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 16,
+        "area_id": 5,
+        "energy_consumed": 110.8,
+        "voltage": 230.48,
+        "current": 5.6,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 17,
+        "area_id": 1,
+        "energy_consumed": 107.73,
+        "voltage": 240.46,
+        "current": 6.2,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 17,
+        "area_id": 2,
+        "energy_consumed": 102.05,
+        "voltage": 233.12,
+        "current": 5.63,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 17,
+        "area_id": 3,
+        "energy_consumed": 314.11,
+        "voltage": 219.55,
+        "current": 6.77,
+        "anomaly": -1,
+        "theft_detected": "Yes"
+    },
+    {
+        "day": 17,
+        "area_id": 4,
+        "energy_consumed": 115.36,
+        "voltage": 234.02,
+        "current": 5.41,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 17,
+        "area_id": 5,
+        "energy_consumed": 111.54,
+        "voltage": 227.83,
+        "current": 5.2,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 18,
+        "area_id": 1,
+        "energy_consumed": 384.9,
+        "voltage": 222.76,
+        "current": 3.59,
+        "anomaly": -1,
+        "theft_detected": "Yes"
+    },
+    {
+        "day": 18,
+        "area_id": 2,
+        "energy_consumed": 109.22,
+        "voltage": 228.93,
+        "current": 2.96,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 18,
+        "area_id": 3,
+        "energy_consumed": 143.55,
+        "voltage": 229.9,
+        "current": 4.0,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 18,
+        "area_id": 4,
+        "energy_consumed": 338.45,
+        "voltage": 236.36,
+        "current": 5.77,
+        "anomaly": -1,
+        "theft_detected": "Yes"
+    },
+    {
+        "day": 18,
+        "area_id": 5,
+        "energy_consumed": 127.39,
+        "voltage": 230.44,
+        "current": 5.69,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 19,
+        "area_id": 1,
+        "energy_consumed": 113.98,
+        "voltage": 230.35,
+        "current": 5.98,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 19,
+        "area_id": 2,
+        "energy_consumed": 127.1,
+        "voltage": 230.27,
+        "current": 6.45,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 19,
+        "area_id": 3,
+        "energy_consumed": 134.39,
+        "voltage": 236.0,
+        "current": 6.82,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 19,
+        "area_id": 4,
+        "energy_consumed": 118.34,
+        "voltage": 234.88,
+        "current": 4.16,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 19,
+        "area_id": 5,
+        "energy_consumed": 111.01,
+        "voltage": 235.16,
+        "current": 3.19,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 20,
+        "area_id": 1,
+        "energy_consumed": 91.31,
+        "voltage": 231.81,
+        "current": 4.1,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 20,
+        "area_id": 2,
+        "energy_consumed": 127.38,
+        "voltage": 233.71,
+        "current": 6.48,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 20,
+        "area_id": 3,
+        "energy_consumed": 130.5,
+        "voltage": 229.34,
+        "current": 6.18,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 20,
+        "area_id": 4,
+        "energy_consumed": 112.96,
+        "voltage": 231.48,
+        "current": 3.9,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 20,
+        "area_id": 5,
+        "energy_consumed": 125.11,
+        "voltage": 229.57,
+        "current": 4.89,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 21,
+        "area_id": 1,
+        "energy_consumed": 138.57,
+        "voltage": 229.46,
+        "current": 4.94,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 21,
+        "area_id": 2,
+        "energy_consumed": 123.89,
+        "voltage": 231.51,
+        "current": 5.01,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 21,
+        "area_id": 3,
+        "energy_consumed": 120.7,
+        "voltage": 228.43,
+        "current": 3.4,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 21,
+        "area_id": 4,
+        "energy_consumed": 99.47,
+        "voltage": 232.68,
+        "current": 3.47,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 21,
+        "area_id": 5,
+        "energy_consumed": 139.17,
+        "voltage": 231.21,
+        "current": 7.05,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 22,
+        "area_id": 1,
+        "energy_consumed": 121.72,
+        "voltage": 237.76,
+        "current": 7.06,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 22,
+        "area_id": 2,
+        "energy_consumed": 146.33,
+        "voltage": 224.9,
+        "current": 4.73,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 22,
+        "area_id": 3,
+        "energy_consumed": 142.34,
+        "voltage": 234.39,
+        "current": 6.06,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 22,
+        "area_id": 4,
+        "energy_consumed": 93.62,
+        "voltage": 234.43,
+        "current": 4.86,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 22,
+        "area_id": 5,
+        "energy_consumed": 123.0,
+        "voltage": 219.15,
+        "current": 6.63,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 23,
+        "area_id": 1,
+        "energy_consumed": 99.3,
+        "voltage": 229.93,
+        "current": 5.8,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 23,
+        "area_id": 2,
+        "energy_consumed": 115.78,
+        "voltage": 221.68,
+        "current": 2.93,
+        "anomaly": -1,
+        "theft_detected": "Yes"
+    },
+    {
+        "day": 23,
+        "area_id": 3,
+        "energy_consumed": 118.66,
+        "voltage": 229.39,
+        "current": 4.92,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 23,
+        "area_id": 4,
+        "energy_consumed": 103.48,
+        "voltage": 232.44,
+        "current": 4.94,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 23,
+        "area_id": 5,
+        "energy_consumed": 134.33,
+        "voltage": 227.77,
+        "current": 4.52,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 24,
+        "area_id": 1,
+        "energy_consumed": 327.64,
+        "voltage": 229.46,
+        "current": 3.96,
+        "anomaly": -1,
+        "theft_detected": "Yes"
+    },
+    {
+        "day": 24,
+        "area_id": 2,
+        "energy_consumed": 111.7,
+        "voltage": 224.01,
+        "current": 4.9,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 24,
+        "area_id": 3,
+        "energy_consumed": 120.63,
+        "voltage": 226.5,
+        "current": 5.21,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 24,
+        "area_id": 4,
+        "energy_consumed": 118.32,
+        "voltage": 228.9,
+        "current": 4.26,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 24,
+        "area_id": 5,
+        "energy_consumed": 128.69,
+        "voltage": 228.62,
+        "current": 2.7,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 25,
+        "area_id": 1,
+        "energy_consumed": 97.27,
+        "voltage": 236.83,
+        "current": 5.85,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 25,
+        "area_id": 2,
+        "energy_consumed": 105.18,
+        "voltage": 245.39,
+        "current": 6.12,
+        "anomaly": -1,
+        "theft_detected": "Yes"
+    },
+    {
+        "day": 25,
+        "area_id": 3,
+        "energy_consumed": 118.08,
+        "voltage": 225.22,
+        "current": 4.19,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 25,
+        "area_id": 4,
+        "energy_consumed": 106.43,
+        "voltage": 226.77,
+        "current": 3.92,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 25,
+        "area_id": 5,
+        "energy_consumed": 145.31,
+        "voltage": 234.41,
+        "current": 4.13,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 26,
+        "area_id": 1,
+        "energy_consumed": 119.95,
+        "voltage": 237.62,
+        "current": 5.54,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 26,
+        "area_id": 2,
+        "energy_consumed": 104.44,
+        "voltage": 229.05,
+        "current": 6.4,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 26,
+        "area_id": 3,
+        "energy_consumed": 100.36,
+        "voltage": 223.01,
+        "current": 5.56,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 26,
+        "area_id": 4,
+        "energy_consumed": 110.24,
+        "voltage": 227.56,
+        "current": 4.17,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 26,
+        "area_id": 5,
+        "energy_consumed": 111.82,
+        "voltage": 230.24,
+        "current": 4.17,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 27,
+        "area_id": 1,
+        "energy_consumed": 124.06,
+        "voltage": 229.75,
+        "current": 5.39,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 27,
+        "area_id": 2,
+        "energy_consumed": 118.73,
+        "voltage": 227.12,
+        "current": 5.76,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 27,
+        "area_id": 3,
+        "energy_consumed": 127.51,
+        "voltage": 225.11,
+        "current": 7.04,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 27,
+        "area_id": 4,
+        "energy_consumed": 144.29,
+        "voltage": 226.69,
+        "current": 5.57,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 27,
+        "area_id": 5,
+        "energy_consumed": 108.55,
+        "voltage": 220.98,
+        "current": 4.54,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 28,
+        "area_id": 1,
+        "energy_consumed": 115.4,
+        "voltage": 233.19,
+        "current": 3.34,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 28,
+        "area_id": 2,
+        "energy_consumed": 119.01,
+        "voltage": 223.94,
+        "current": 4.85,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 28,
+        "area_id": 3,
+        "energy_consumed": 113.89,
+        "voltage": 235.03,
+        "current": 4.42,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 28,
+        "area_id": 4,
+        "energy_consumed": 132.54,
+        "voltage": 224.35,
+        "current": 4.28,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 28,
+        "area_id": 5,
+        "energy_consumed": 156.51,
+        "voltage": 232.89,
+        "current": 4.8,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 29,
+        "area_id": 1,
+        "energy_consumed": 125.57,
+        "voltage": 226.98,
+        "current": 5.49,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 29,
+        "area_id": 2,
+        "energy_consumed": 143.7,
+        "voltage": 231.69,
+        "current": 4.59,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 29,
+        "area_id": 3,
+        "energy_consumed": 112.69,
+        "voltage": 227.84,
+        "current": 5.54,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 29,
+        "area_id": 4,
+        "energy_consumed": 135.52,
+        "voltage": 234.36,
+        "current": 4.67,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 29,
+        "area_id": 5,
+        "energy_consumed": 138.02,
+        "voltage": 227.96,
+        "current": 4.32,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 30,
+        "area_id": 1,
+        "energy_consumed": 86.55,
+        "voltage": 230.09,
+        "current": 6.68,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 30,
+        "area_id": 2,
+        "energy_consumed": 124.9,
+        "voltage": 228.9,
+        "current": 5.89,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 30,
+        "area_id": 3,
+        "energy_consumed": 121.43,
+        "voltage": 222.61,
+        "current": 6.14,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 30,
+        "area_id": 4,
+        "energy_consumed": 125.08,
+        "voltage": 227.92,
+        "current": 5.97,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 30,
+        "area_id": 5,
+        "energy_consumed": 121.23,
+        "voltage": 227.7,
+        "current": 4.15,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 31,
+        "area_id": 1,
+        "energy_consumed": 315.76,
+        "voltage": 237.55,
+        "current": 5.4,
+        "anomaly": -1,
+        "theft_detected": "Yes"
+    },
+    {
+        "day": 31,
+        "area_id": 2,
+        "energy_consumed": 114.79,
+        "voltage": 234.15,
+        "current": 4.73,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 31,
+        "area_id": 3,
+        "energy_consumed": 105.32,
+        "voltage": 227.86,
+        "current": 4.45,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 31,
+        "area_id": 4,
+        "energy_consumed": 134.46,
+        "voltage": 234.87,
+        "current": 5.41,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 31,
+        "area_id": 5,
+        "energy_consumed": 148.15,
+        "voltage": 224.71,
+        "current": 4.49,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 32,
+        "area_id": 1,
+        "energy_consumed": 122.56,
+        "voltage": 234.18,
+        "current": 5.65,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 32,
+        "area_id": 2,
+        "energy_consumed": 119.17,
+        "voltage": 230.9,
+        "current": 7.64,
+        "anomaly": -1,
+        "theft_detected": "Yes"
+    },
+    {
+        "day": 32,
+        "area_id": 3,
+        "energy_consumed": 116.96,
+        "voltage": 230.23,
+        "current": 5.11,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 32,
+        "area_id": 4,
+        "energy_consumed": 130.89,
+        "voltage": 231.08,
+        "current": 5.44,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 32,
+        "area_id": 5,
+        "energy_consumed": 123.75,
+        "voltage": 224.3,
+        "current": 6.59,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 33,
+        "area_id": 1,
+        "energy_consumed": 112.33,
+        "voltage": 229.55,
+        "current": 5.78,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 33,
+        "area_id": 2,
+        "energy_consumed": 158.08,
+        "voltage": 232.62,
+        "current": 4.84,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 33,
+        "area_id": 3,
+        "energy_consumed": 113.6,
+        "voltage": 234.26,
+        "current": 2.68,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 33,
+        "area_id": 4,
+        "energy_consumed": 116.55,
+        "voltage": 233.14,
+        "current": 4.66,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 33,
+        "area_id": 5,
+        "energy_consumed": 145.04,
+        "voltage": 224.37,
+        "current": 4.85,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 34,
+        "area_id": 1,
+        "energy_consumed": 119.9,
+        "voltage": 223.4,
+        "current": 4.77,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 34,
+        "area_id": 2,
+        "energy_consumed": 130.44,
+        "voltage": 224.91,
+        "current": 5.52,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 34,
+        "area_id": 3,
+        "energy_consumed": 108.01,
+        "voltage": 229.18,
+        "current": 7.57,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 34,
+        "area_id": 4,
+        "energy_consumed": 318.7,
+        "voltage": 233.37,
+        "current": 4.89,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 34,
+        "area_id": 5,
+        "energy_consumed": 122.33,
+        "voltage": 229.84,
+        "current": 4.46,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 35,
+        "area_id": 1,
+        "energy_consumed": 109.31,
+        "voltage": 230.53,
+        "current": 6.39,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 35,
+        "area_id": 2,
+        "energy_consumed": 80.11,
+        "voltage": 236.23,
+        "current": 2.93,
+        "anomaly": -1,
+        "theft_detected": "Yes"
+    },
+    {
+        "day": 35,
+        "area_id": 3,
+        "energy_consumed": 114.86,
+        "voltage": 228.14,
+        "current": 4.85,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 35,
+        "area_id": 4,
+        "energy_consumed": 127.92,
+        "voltage": 224.45,
+        "current": 6.75,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 35,
+        "area_id": 5,
+        "energy_consumed": 400.86,
+        "voltage": 226.48,
+        "current": 4.27,
+        "anomaly": -1,
+        "theft_detected": "Yes"
+    },
+    {
+        "day": 36,
+        "area_id": 1,
+        "energy_consumed": 121.48,
+        "voltage": 229.35,
+        "current": 3.78,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 36,
+        "area_id": 2,
+        "energy_consumed": 382.55,
+        "voltage": 225.3,
+        "current": 5.23,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 36,
+        "area_id": 3,
+        "energy_consumed": 123.79,
+        "voltage": 224.59,
+        "current": 5.62,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 36,
+        "area_id": 4,
+        "energy_consumed": 337.62,
+        "voltage": 221.65,
+        "current": 6.76,
+        "anomaly": -1,
+        "theft_detected": "Yes"
+    },
+    {
+        "day": 36,
+        "area_id": 5,
+        "energy_consumed": 101.38,
+        "voltage": 225.92,
+        "current": 3.44,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 37,
+        "area_id": 1,
+        "energy_consumed": 129.09,
+        "voltage": 236.23,
+        "current": 2.83,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 37,
+        "area_id": 2,
+        "energy_consumed": 93.7,
+        "voltage": 227.28,
+        "current": 4.46,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 37,
+        "area_id": 3,
+        "energy_consumed": 125.99,
+        "voltage": 234.86,
+        "current": 4.97,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 37,
+        "area_id": 4,
+        "energy_consumed": 403.84,
+        "voltage": 231.54,
+        "current": 3.29,
+        "anomaly": -1,
+        "theft_detected": "Yes"
+    },
+    {
+        "day": 37,
+        "area_id": 5,
+        "energy_consumed": 99.78,
+        "voltage": 233.72,
+        "current": 3.71,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 38,
+        "area_id": 1,
+        "energy_consumed": 121.51,
+        "voltage": 230.98,
+        "current": 4.02,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 38,
+        "area_id": 2,
+        "energy_consumed": 126.12,
+        "voltage": 221.49,
+        "current": 4.53,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 38,
+        "area_id": 3,
+        "energy_consumed": 360.24,
+        "voltage": 234.91,
+        "current": 6.67,
+        "anomaly": -1,
+        "theft_detected": "Yes"
+    },
+    {
+        "day": 38,
+        "area_id": 4,
+        "energy_consumed": 135.22,
+        "voltage": 229.21,
+        "current": 5.81,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 38,
+        "area_id": 5,
+        "energy_consumed": 255.21,
+        "voltage": 232.59,
+        "current": 4.27,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 39,
+        "area_id": 1,
+        "energy_consumed": 122.8,
+        "voltage": 226.22,
+        "current": 3.48,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 39,
+        "area_id": 2,
+        "energy_consumed": 108.02,
+        "voltage": 225.12,
+        "current": 6.05,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 39,
+        "area_id": 3,
+        "energy_consumed": 105.76,
+        "voltage": 243.16,
+        "current": 5.1,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 39,
+        "area_id": 4,
+        "energy_consumed": 122.69,
+        "voltage": 227.12,
+        "current": 5.12,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 39,
+        "area_id": 5,
+        "energy_consumed": 158.4,
+        "voltage": 229.52,
+        "current": 4.65,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 40,
+        "area_id": 1,
+        "energy_consumed": 348.6,
+        "voltage": 238.85,
+        "current": 4.37,
+        "anomaly": -1,
+        "theft_detected": "Yes"
+    },
+    {
+        "day": 40,
+        "area_id": 2,
+        "energy_consumed": 147.19,
+        "voltage": 232.5,
+        "current": 5.53,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 40,
+        "area_id": 3,
+        "energy_consumed": 103.68,
+        "voltage": 234.65,
+        "current": 4.27,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 40,
+        "area_id": 4,
+        "energy_consumed": 116.29,
+        "voltage": 223.4,
+        "current": 4.77,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 40,
+        "area_id": 5,
+        "energy_consumed": 135.97,
+        "voltage": 230.6,
+        "current": 5.56,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 41,
+        "area_id": 1,
+        "energy_consumed": 136.21,
+        "voltage": 227.73,
+        "current": 5.63,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 41,
+        "area_id": 2,
+        "energy_consumed": 97.1,
+        "voltage": 229.71,
+        "current": 5.43,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 41,
+        "area_id": 3,
+        "energy_consumed": 123.12,
+        "voltage": 234.09,
+        "current": 5.13,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 41,
+        "area_id": 4,
+        "energy_consumed": 126.7,
+        "voltage": 228.93,
+        "current": 4.96,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 41,
+        "area_id": 5,
+        "energy_consumed": 130.22,
+        "voltage": 227.67,
+        "current": 5.89,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 42,
+        "area_id": 1,
+        "energy_consumed": 98.92,
+        "voltage": 232.51,
+        "current": 5.22,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 42,
+        "area_id": 2,
+        "energy_consumed": 112.82,
+        "voltage": 228.69,
+        "current": 5.13,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 42,
+        "area_id": 3,
+        "energy_consumed": 126.19,
+        "voltage": 220.35,
+        "current": 6.03,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 42,
+        "area_id": 4,
+        "energy_consumed": 97.72,
+        "voltage": 223.25,
+        "current": 5.59,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 42,
+        "area_id": 5,
+        "energy_consumed": 130.7,
+        "voltage": 230.24,
+        "current": 4.48,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 43,
+        "area_id": 1,
+        "energy_consumed": 141.14,
+        "voltage": 234.6,
+        "current": 5.31,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 43,
+        "area_id": 2,
+        "energy_consumed": 94.77,
+        "voltage": 221.21,
+        "current": 4.58,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 43,
+        "area_id": 3,
+        "energy_consumed": 115.77,
+        "voltage": 224.97,
+        "current": 3.95,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 43,
+        "area_id": 4,
+        "energy_consumed": 90.99,
+        "voltage": 223.96,
+        "current": 5.98,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 43,
+        "area_id": 5,
+        "energy_consumed": 116.79,
+        "voltage": 241.55,
+        "current": 4.34,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 44,
+        "area_id": 1,
+        "energy_consumed": 137.51,
+        "voltage": 238.11,
+        "current": 4.36,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 44,
+        "area_id": 2,
+        "energy_consumed": 112.04,
+        "voltage": 232.78,
+        "current": 4.38,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 44,
+        "area_id": 3,
+        "energy_consumed": 112.56,
+        "voltage": 229.16,
+        "current": 6.42,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 44,
+        "area_id": 4,
+        "energy_consumed": 111.44,
+        "voltage": 231.72,
+        "current": 4.62,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 44,
+        "area_id": 5,
+        "energy_consumed": 109.42,
+        "voltage": 226.48,
+        "current": 6.55,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 45,
+        "area_id": 1,
+        "energy_consumed": 335.5,
+        "voltage": 232.92,
+        "current": 5.54,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 45,
+        "area_id": 2,
+        "energy_consumed": 136.25,
+        "voltage": 229.12,
+        "current": 4.2,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 45,
+        "area_id": 3,
+        "energy_consumed": 99.31,
+        "voltage": 226.35,
+        "current": 4.16,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 45,
+        "area_id": 4,
+        "energy_consumed": 119.88,
+        "voltage": 227.41,
+        "current": 5.22,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 45,
+        "area_id": 5,
+        "energy_consumed": 119.75,
+        "voltage": 235.94,
+        "current": 6.21,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 46,
+        "area_id": 1,
+        "energy_consumed": 125.15,
+        "voltage": 233.41,
+        "current": 6.85,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 46,
+        "area_id": 2,
+        "energy_consumed": 128.76,
+        "voltage": 228.2,
+        "current": 5.93,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 46,
+        "area_id": 3,
+        "energy_consumed": 126.33,
+        "voltage": 234.1,
+        "current": 5.51,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 46,
+        "area_id": 4,
+        "energy_consumed": 136.0,
+        "voltage": 235.85,
+        "current": 4.35,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 46,
+        "area_id": 5,
+        "energy_consumed": 127.21,
+        "voltage": 229.16,
+        "current": 5.15,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 47,
+        "area_id": 1,
+        "energy_consumed": 138.1,
+        "voltage": 225.92,
+        "current": 5.42,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 47,
+        "area_id": 2,
+        "energy_consumed": 126.01,
+        "voltage": 230.96,
+        "current": 5.05,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 47,
+        "area_id": 3,
+        "energy_consumed": 99.6,
+        "voltage": 233.73,
+        "current": 6.5,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 47,
+        "area_id": 4,
+        "energy_consumed": 123.2,
+        "voltage": 231.25,
+        "current": 6.58,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 47,
+        "area_id": 5,
+        "energy_consumed": 118.57,
+        "voltage": 231.4,
+        "current": 5.18,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 48,
+        "area_id": 1,
+        "energy_consumed": 392.95,
+        "voltage": 224.87,
+        "current": 5.13,
+        "anomaly": -1,
+        "theft_detected": "Yes"
+    },
+    {
+        "day": 48,
+        "area_id": 2,
+        "energy_consumed": 109.5,
+        "voltage": 227.6,
+        "current": 5.13,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 48,
+        "area_id": 3,
+        "energy_consumed": 328.97,
+        "voltage": 237.83,
+        "current": 4.93,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 48,
+        "area_id": 4,
+        "energy_consumed": 111.67,
+        "voltage": 239.41,
+        "current": 3.77,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 48,
+        "area_id": 5,
+        "energy_consumed": 117.33,
+        "voltage": 224.89,
+        "current": 5.71,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 49,
+        "area_id": 1,
+        "energy_consumed": 123.66,
+        "voltage": 227.18,
+        "current": 4.78,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 49,
+        "area_id": 2,
+        "energy_consumed": 102.8,
+        "voltage": 239.23,
+        "current": 3.93,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 49,
+        "area_id": 3,
+        "energy_consumed": 97.12,
+        "voltage": 226.54,
+        "current": 5.9,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 49,
+        "area_id": 4,
+        "energy_consumed": 116.9,
+        "voltage": 223.74,
+        "current": 6.44,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 49,
+        "area_id": 5,
+        "energy_consumed": 118.77,
+        "voltage": 235.59,
+        "current": 5.27,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 50,
+        "area_id": 1,
+        "energy_consumed": 116.55,
+        "voltage": 232.85,
+        "current": 5.45,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 50,
+        "area_id": 2,
+        "energy_consumed": 129.64,
+        "voltage": 236.65,
+        "current": 6.25,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 50,
+        "area_id": 3,
+        "energy_consumed": 127.37,
+        "voltage": 226.62,
+        "current": 6.8,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 50,
+        "area_id": 4,
+        "energy_consumed": 292.77,
+        "voltage": 222.04,
+        "current": 5.56,
+        "anomaly": -1,
+        "theft_detected": "Yes"
+    },
+    {
+        "day": 50,
+        "area_id": 5,
+        "energy_consumed": 110.48,
+        "voltage": 234.98,
+        "current": 4.55,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 51,
+        "area_id": 1,
+        "energy_consumed": 83.64,
+        "voltage": 235.12,
+        "current": 3.91,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 51,
+        "area_id": 2,
+        "energy_consumed": 369.15,
+        "voltage": 225.17,
+        "current": 4.95,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 51,
+        "area_id": 3,
+        "energy_consumed": 119.95,
+        "voltage": 224.21,
+        "current": 5.52,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 51,
+        "area_id": 4,
+        "energy_consumed": 358.34,
+        "voltage": 219.79,
+        "current": 4.75,
+        "anomaly": -1,
+        "theft_detected": "Yes"
+    },
+    {
+        "day": 51,
+        "area_id": 5,
+        "energy_consumed": 342.84,
+        "voltage": 226.34,
+        "current": 5.2,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 52,
+        "area_id": 1,
+        "energy_consumed": 104.06,
+        "voltage": 227.14,
+        "current": 5.57,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 52,
+        "area_id": 2,
+        "energy_consumed": 386.99,
+        "voltage": 239.06,
+        "current": 5.36,
+        "anomaly": -1,
+        "theft_detected": "Yes"
+    },
+    {
+        "day": 52,
+        "area_id": 3,
+        "energy_consumed": 125.9,
+        "voltage": 233.41,
+        "current": 6.05,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 52,
+        "area_id": 4,
+        "energy_consumed": 354.58,
+        "voltage": 234.75,
+        "current": 4.8,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 52,
+        "area_id": 5,
+        "energy_consumed": 139.76,
+        "voltage": 238.68,
+        "current": 5.2,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 53,
+        "area_id": 1,
+        "energy_consumed": 110.23,
+        "voltage": 227.58,
+        "current": 3.97,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 53,
+        "area_id": 2,
+        "energy_consumed": 112.06,
+        "voltage": 229.88,
+        "current": 7.14,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 53,
+        "area_id": 3,
+        "energy_consumed": 145.91,
+        "voltage": 232.18,
+        "current": 3.87,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 53,
+        "area_id": 4,
+        "energy_consumed": 128.46,
+        "voltage": 228.71,
+        "current": 3.33,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 53,
+        "area_id": 5,
+        "energy_consumed": 125.99,
+        "voltage": 233.24,
+        "current": 3.14,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 54,
+        "area_id": 1,
+        "energy_consumed": 106.48,
+        "voltage": 231.12,
+        "current": 6.05,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 54,
+        "area_id": 2,
+        "energy_consumed": 145.26,
+        "voltage": 227.71,
+        "current": 3.37,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 54,
+        "area_id": 3,
+        "energy_consumed": 111.41,
+        "voltage": 237.38,
+        "current": 6.38,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 54,
+        "area_id": 4,
+        "energy_consumed": 110.62,
+        "voltage": 231.98,
+        "current": 5.32,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 54,
+        "area_id": 5,
+        "energy_consumed": 115.63,
+        "voltage": 232.72,
+        "current": 4.63,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 55,
+        "area_id": 1,
+        "energy_consumed": 131.58,
+        "voltage": 215.76,
+        "current": 3.84,
+        "anomaly": -1,
+        "theft_detected": "Yes"
+    },
+    {
+        "day": 55,
+        "area_id": 2,
+        "energy_consumed": 124.79,
+        "voltage": 223.53,
+        "current": 6.16,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 55,
+        "area_id": 3,
+        "energy_consumed": 112.98,
+        "voltage": 231.73,
+        "current": 3.44,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 55,
+        "area_id": 4,
+        "energy_consumed": 353.07,
+        "voltage": 223.59,
+        "current": 6.0,
+        "anomaly": -1,
+        "theft_detected": "Yes"
+    },
+    {
+        "day": 55,
+        "area_id": 5,
+        "energy_consumed": 112.59,
+        "voltage": 233.24,
+        "current": 3.61,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 56,
+        "area_id": 1,
+        "energy_consumed": 107.42,
+        "voltage": 232.6,
+        "current": 4.68,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 56,
+        "area_id": 2,
+        "energy_consumed": 151.15,
+        "voltage": 231.81,
+        "current": 6.3,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 56,
+        "area_id": 3,
+        "energy_consumed": 115.45,
+        "voltage": 231.9,
+        "current": 4.93,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 56,
+        "area_id": 4,
+        "energy_consumed": 119.44,
+        "voltage": 229.35,
+        "current": 3.97,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 56,
+        "area_id": 5,
+        "energy_consumed": 117.15,
+        "voltage": 232.24,
+        "current": 5.92,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 57,
+        "area_id": 1,
+        "energy_consumed": 125.2,
+        "voltage": 219.5,
+        "current": 7.94,
+        "anomaly": -1,
+        "theft_detected": "Yes"
+    },
+    {
+        "day": 57,
+        "area_id": 2,
+        "energy_consumed": 366.14,
+        "voltage": 235.54,
+        "current": 3.96,
+        "anomaly": -1,
+        "theft_detected": "Yes"
+    },
+    {
+        "day": 57,
+        "area_id": 3,
+        "energy_consumed": 129.19,
+        "voltage": 224.73,
+        "current": 5.28,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 57,
+        "area_id": 4,
+        "energy_consumed": 110.24,
+        "voltage": 229.05,
+        "current": 5.22,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 57,
+        "area_id": 5,
+        "energy_consumed": 133.05,
+        "voltage": 232.48,
+        "current": 4.97,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 58,
+        "area_id": 1,
+        "energy_consumed": 150.05,
+        "voltage": 231.01,
+        "current": 6.05,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 58,
+        "area_id": 2,
+        "energy_consumed": 136.58,
+        "voltage": 235.94,
+        "current": 3.91,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 58,
+        "area_id": 3,
+        "energy_consumed": 144.47,
+        "voltage": 231.51,
+        "current": 4.25,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 58,
+        "area_id": 4,
+        "energy_consumed": 119.04,
+        "voltage": 231.64,
+        "current": 5.34,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 58,
+        "area_id": 5,
+        "energy_consumed": 141.53,
+        "voltage": 228.78,
+        "current": 5.96,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 59,
+        "area_id": 1,
+        "energy_consumed": 137.84,
+        "voltage": 223.86,
+        "current": 5.72,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 59,
+        "area_id": 2,
+        "energy_consumed": 129.53,
+        "voltage": 229.25,
+        "current": 5.13,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 59,
+        "area_id": 3,
+        "energy_consumed": 117.4,
+        "voltage": 230.08,
+        "current": 3.72,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 59,
+        "area_id": 4,
+        "energy_consumed": 95.34,
+        "voltage": 225.04,
+        "current": 2.85,
+        "anomaly": -1,
+        "theft_detected": "Yes"
+    },
+    {
+        "day": 59,
+        "area_id": 5,
+        "energy_consumed": 110.42,
+        "voltage": 223.38,
+        "current": 5.17,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 60,
+        "area_id": 1,
+        "energy_consumed": 109.5,
+        "voltage": 226.56,
+        "current": 7.25,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 60,
+        "area_id": 2,
+        "energy_consumed": 134.73,
+        "voltage": 228.38,
+        "current": 4.55,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 60,
+        "area_id": 3,
+        "energy_consumed": 119.7,
+        "voltage": 223.05,
+        "current": 3.35,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 60,
+        "area_id": 4,
+        "energy_consumed": 135.34,
+        "voltage": 242.2,
+        "current": 5.68,
+        "anomaly": 1,
+        "theft_detected": "No"
+    },
+    {
+        "day": 60,
+        "area_id": 5,
+        "energy_consumed": 128.63,
+        "voltage": 233.79,
+        "current": 5.28,
+        "anomaly": 1,
+        "theft_detected": "No"
+    }
+]
