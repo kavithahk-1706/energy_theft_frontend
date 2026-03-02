@@ -6,9 +6,9 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   const role = user?.publicMetadata?.role;
 
   // Strict check: if the metadata doesn't say 'owner', boot them
-  if (role !== "owner") {
-    redirect("/"); // Send back to landing page or user dashboard
-  }
+  //if (role !== "owner") {
+    //redirect("/"); // Send back to landing page or user dashboard
+  //}
 
   return (
     <div className="admin-container">
