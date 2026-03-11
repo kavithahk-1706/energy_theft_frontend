@@ -7,15 +7,15 @@ import { motion, useScroll, useSpring } from "framer-motion";
 import { 
   Activity, ArrowUpRight, Cpu, Database, 
   Server, Network, ShieldCheck,
-  Search, FileBarChart, Timer, BarChart3, Zap, Layers
+  Search, FileBarChart, Timer, BarChart3, Target, Layers, Shield
 } from 'lucide-react';
 
 /**
- * MODULE: VOLTGUARD ROOT PORTAL
+ * MODULE: SUDARSHAN CORE ROOT PORTAL
  * TONE: PROFESSIONAL // NAVIGATIONAL // DYNAMIC
  */
 
-export default function VoltGuardEnterpriseMaster() {
+export default function SudarshanEnterpriseMaster() {
   const { user, isLoaded } = useUser();
   const [mounted, setMounted] = useState(false);
   useEffect(() => { setMounted(true); }, []);
@@ -26,7 +26,7 @@ export default function VoltGuardEnterpriseMaster() {
   // --- ROLE DETECTION ---
   const metadata = user?.publicMetadata as { role?: string; orgSlug?: string; orgName?: string };
   const role = metadata?.role || 'user';
-  const orgSlug = metadata?.orgSlug || '';
+  const orgSlug = metadata?.orgSlug || 'demo-utility';
 
   const isOwner = user?.primaryEmailAddress?.emailAddress === "pradhyumnavojjala@gmail.com";
   const finalRole = isOwner ? 'owner' : role;
@@ -34,17 +34,17 @@ export default function VoltGuardEnterpriseMaster() {
   // --- DYNAMIC CONTENT BLOCKS ---
   const heroContent = finalRole === 'owner' ? {
     badge: "GLOBAL COMMAND CENTER",
-    primaryBtn: { label: "MANAGE_CLIENTS", href: "/manage-orgs" },
+    primaryBtn: { label: "MANAGE_CLIENTS", href: "/manage-clients" },
     secondaryBtn: { label: "ADMIN_CONSOLE", href: "/profile" },
-    metric1: { label: "VIEW_LOGS", val: "489k+", icon: Database, href: "/history" },
-    metric2: { label: "MODEL_METRICS", val: "99.6%", icon: Activity, href: "/demo-utility/metrics" } // Placeholder for global metrics
+    metric1: { label: "CLIENT_LOGS", val: "900+", icon: Database, href: "/client-logs" },
+    metric2: { label: "MODEL_METRICS", val: "99.6%", icon: Activity, href: "/demo-utility/metrics" }
   } : {
     // CLIENT CONTENT
     badge: `${orgSlug ? orgSlug.toUpperCase() : 'UTILITY'} GRID SECURED`,
     primaryBtn: { label: "GO_TO_DASHBOARD", href: `/${orgSlug}` },
-    secondaryBtn: { label: "RUN_NEW_SCAN", href: `/${orgSlug}/analytics` },
-    metric1: { label: "RECENT_SCANS", val: "142", icon: Layers, href: `/${orgSlug}/analytics` },
-    metric2: { label: "INFRASTRUCTURE", val: "ACTIVE", icon: Server, href: `/${orgSlug}/infrastructure` }
+    secondaryBtn: { label: "RUN_NEW_PREDICTION", href: `/${orgSlug}/predict` },
+    metric1: { label: "RECENT_SCANS", val: "142", icon: Layers, href: `/${orgSlug}/logs` },
+    metric2: { label: "MODEL_PERFORMANCE", val: "99.6%", icon: Server, href: `/${orgSlug}/model-metrics` }
   };
   
   return (
@@ -131,25 +131,21 @@ export default function VoltGuardEnterpriseMaster() {
             </div>
           </motion.div>
 
-          {/* VISUAL COLUMN */}
+          {/* VISUAL COLUMN - SUDARSHAN CHAKRA */}
           <div className="hero-visual">
             <div className="engine-viewport">
-              <div className="engine-container">
+              <div className="chakra-container">
                 <div className="grid-bg" />
-                <div className="ring ring-outer" />
-                <div className="ring ring-inner" />
+                
+                {/* LETHAL SPINNING DISCS */}
+                <div className="chakra-ring ring-outer" />
+                <div className="chakra-ring ring-mid" />
+                <div className="chakra-ring ring-inner" />
                 
                 <div className="core-node">
-                   <Zap size={48} className="text-white" style={{color:'cyan'}} />
+                   <Target size={44} className="text-white drop-target" />
                    <div className="core-pulse" />
                 </div>
-
-                <div className="orbit-track cw">
-                  <div className="data-node n1" />
-                </div>
-                <div className="orbit-track acw">
-                  <div className="data-node n2" />
-               </div>
               </div>
             </div>
           </div>
@@ -280,7 +276,6 @@ const masterStyles = `
   .btn-secondary { background: transparent; border: 1px solid var(--border); color: #fff; padding: 16px 32px; border-radius: 8px; font-weight: 700; font-size: 13px; display: flex; align-items: center; gap: 8px; cursor: pointer; font-family: 'JetBrains Mono'; transition: 0.2s; text-decoration: none;}
   .btn-secondary:hover { border-color: #fff; background: rgba(255,255,255,0.05); }
 
-  /* UPDATED METRICS LINKS */
   .hero-metrics { display: flex; gap: 30px; border-top: 1px solid var(--border); padding-top: 30px; }
   .m-unit { display: flex; align-items: center; gap: 15px; cursor: pointer; transition: 0.3s; padding: 10px; border-radius: 8px; text-decoration: none; }
   .m-unit:hover { background: rgba(255,255,255,0.05); }
@@ -288,26 +283,52 @@ const masterStyles = `
   .m-val { font-size: 20px; font-weight: 800; display: block; line-height: 1; color: #fff; }
   .m-lbl { font-size: 9px; color: var(--text-muted); font-family: 'JetBrains Mono'; margin-top: 4px; display: block; font-weight: 600; text-decoration: underline; text-decoration-color: rgba(255,255,255,0.2); }
 
-  /* VISUAL ENGINE */
+  /* VISUAL ENGINE - SUDARSHAN CHAKRA */
   .hero-visual { display: flex; justify-content: center; transform: scale(1.25); padding-top:0; padding-bottom:25%; }
   .engine-viewport { width: 400px; height: 400px; position: relative; }
-  .engine-container { width: 100%; height: 100%; position: relative; display: flex; align-items: center; justify-content: center; }
+  .chakra-container { width: 100%; height: 100%; position: relative; display: flex; align-items: center; justify-content: center; }
   .grid-bg { position: absolute; inset: -50px; background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 30px 30px; opacity: 0.2; border-radius: 50%; }
   
-  .ring { position: absolute; border-radius: 50%; border: 1px solid var(--border); }
-  .ring-outer { width: 350px; height: 350px; border-style: dashed; animation: spin 40s linear infinite; }
-  .ring-inner { width: 250px; height: 250px; border-color: rgba(255,255,255,0.2); animation: spin-rev 20s linear infinite; }
+  .chakra-ring { position: absolute; border-radius: 50%; }
   
-  .core-node { width: 80px; height: 80px; border: 1px solid var(--border);  border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative; background: (--cyan);}
-  .core-pulse { position: absolute; inset: -10px; z-index: -1; background: var(--purple); opacity: 0.1; filter: blur(20px); border-radius: 50%; animation: pulse 3s infinite; transform: scale(1.5); }
+  /* Outer weapon disc - massive cyan dashes spinning fast */
+  .ring-outer { 
+    width: 350px; height: 350px; 
+    border: 4px dotted rgba(0, 242, 255, 0.6); 
+    box-shadow: 0 0 40px rgba(0, 242, 255, 0.3), inset 0 0 20px rgba(0, 242, 255, 0.1);
+    animation: spin 1s linear infinite; 
+  }
   
-  .orbit-track { position: absolute; width: 200px; height: 200px;  }
-  .cw { animation: spin 4s linear infinite; }
-  .acw { animation: spin-rev 4s linear infinite; }
-  .data-node { position: absolute; width: 8px; height: 8px; background: #fff; border-radius: 50%; box-shadow: 0 0 10px white; }
-
-  .n1 { top: 0; left: 90%; margin-left: -4px; box-shadow: 10px 5px 20px white; background-color: var(--cyan); } 
-  .n2 { bottom: 0; left: 123%; margin-left: -4px; box-shadow: 10px 15px 20px white; background-color: var(--purple);}
+  /* Mid containment field - solid purple reverse spin */
+  .ring-mid { 
+    width: 270px; height: 270px; 
+    border: 2px solid rgba(123, 0, 255, 0.8); 
+    border-top-color: transparent; border-bottom-color: transparent;
+    box-shadow: 0 0 50px rgba(123, 0, 255, 0.4), inset 0 0 30px rgba(123, 0, 255, 0.2);
+    animation: spin 0.5s linear infinite; 
+  }
+  
+  /* Inner high-velocity track - tight cyan dashed */
+  .ring-inner { 
+    width: 180px; height: 180px; 
+    border: 3px dashed var(--cyan); 
+    box-shadow: 0 0 30px var(--cyan), inset 0 0 10px var(--cyan);
+    animation: spin 0.5s linear infinite; 
+  }
+  
+  .core-node { 
+    width: 80px; height: 80px; 
+    border: 2px solid var(--cyan);  
+    border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+    position: relative; background: rgba(0,0,0,0.8); 
+    box-shadow: 0 0 40px var(--cyan); z-index: 10; 
+  }
+  .drop-target { color: var(--cyan); filter: drop-shadow(0 0 10px var(--cyan)); }
+  .core-pulse { 
+    position: absolute; inset: -20px; z-index: -1; 
+    background: var(--purple); opacity: 0.5; filter: blur(25px); 
+    border-radius: 50%; animation: pulse 2s infinite; 
+  }
 
   /* CHALLENGE SECTION */
   .challenge-section { padding: 120px 0; width: 90%; max-width: 1200px; margin: 0 auto; }
@@ -342,7 +363,7 @@ const masterStyles = `
   /* ANIMATIONS */
   @keyframes spin { 100% { transform: rotate(360deg); } }
   @keyframes spin-rev { 100% { transform: rotate(-360deg); } }
-  @keyframes pulse { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.6; } }
+  @keyframes pulse { 0%, 100% { opacity: 0.3; transform: scale(1); } 50% { opacity: 0.7; transform: scale(1.1); } }
   @keyframes packet { 0% { left: 0; opacity: 1; } 100% { left: 100%; opacity: 0; } }
   @keyframes shimmer { 0% { left: -100%; } 100% { left: 200%; } }
 

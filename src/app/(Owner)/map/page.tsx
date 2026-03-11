@@ -25,7 +25,7 @@ function SystemBootloader() {
     <div className="boot-wrapper">
       <div className="boot-container">
         <div className="boot-header">
-          <div className="boot-glitch" data-text="VOLTGUARD_OS">VOLTGUARD_OS</div>
+          <div className="boot-glitch" data-text="SUDARSHAN CORE_OS">SUDARSHAN CORE_OS</div>
           <div className="boot-sub">KERNEL_V9.0_STABLE // BUILD_2026_HYD</div>
         </div>
 

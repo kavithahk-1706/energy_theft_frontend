@@ -11,7 +11,7 @@ export async function POST(req: Request) {
     const result = await streamText({
       model: google('gemini-2.5-flash'), // Using the active 2026 model
       messages,
-      system: "You are the VoltGuard AI. Handle theft checks by promising a response within 3-12 hours.",
+      system: "You are the Sudarshan AI. Handle theft checks by promising a response within 3-12 hours.",
     });
 
     return result.toTextStreamResponse();

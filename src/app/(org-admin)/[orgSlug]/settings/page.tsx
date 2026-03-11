@@ -10,7 +10,7 @@ import Link from 'next/link';
 
 /**
  * MODULE: CLIENT_SETTINGS_V1
- * STYLE: NEO_TOKYO_PRESERVED
+ * STYLE: SUDARSHAN_CORE_PRESERVED
  * CONTENT: TENANT_ORGANIZATION
  */
 
@@ -34,7 +34,7 @@ export default function ClientSettings({ params }: { params?: { orgSlug?: string
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // --- 1. THE PARTICLE SYSTEM ---
+  // --- 1. HIGH-SPEED TELEMETRY DATA STREAM ---
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -45,10 +45,9 @@ export default function ClientSettings({ params }: { params?: { orgSlug?: string
     const createParticle = () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      size: Math.random() * 2,
-      speedX: Math.random() * 1 - 0.5,
-      speedY: Math.random() * 1 - 0.5,
-      opacity: Math.random()
+      length: Math.random() * 20 + 10,
+      speedY: Math.random() * 4 + 2,
+      opacity: Math.random() * 0.4
     });
 
     const init = () => {
@@ -57,17 +56,20 @@ export default function ClientSettings({ params }: { params?: { orgSlug?: string
         canvas.height = rect?.height || window.innerHeight;
         
         particles = []; 
-        for (let i = 0; i < 100; i++) particles.push(createParticle());
+        for (let i = 0; i < 80; i++) particles.push(createParticle());
     };
 
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       particles.forEach(p => {
-        p.x += p.speedX;
         p.y += p.speedY;
-        if (p.x > canvas.width) p.x = 0;
-        ctx.fillStyle = `rgba(0, 242, 255, ${p.opacity})`; // Switched to cyan for client theme
-        ctx.fillRect(p.x, p.y, p.size, p.size);
+        if (p.y > canvas.height) {
+            p.y = -p.length;
+            p.x = Math.random() * canvas.width;
+        }
+        // Draw vertical data streaks instead of floating debris
+        ctx.fillStyle = `rgba(0, 242, 255, ${p.opacity})`;
+        ctx.fillRect(p.x, p.y, 2, p.length); 
       });
       requestAnimationFrame(animate);
     };
@@ -101,24 +103,24 @@ export default function ClientSettings({ params }: { params?: { orgSlug?: string
 
   // --- 4. CLIENT SPECIFIC DATASETS ---
   const nodeStats = [
-    { label: 'QTA', val: 65, max: '10k/MO' }, // API Quota
-    { label: 'AGT', val: 100, max: '12/12' }, // Active Agents
-    { label: 'RSP', val: 15, max: '42ms' },   // Response time
-    { label: 'LOD', val: nodeLoad, max: 'NODE' } // Current Load
+    { label: 'QTA', val: 65, max: '10k/MO' },
+    { label: 'AGT', val: 100, max: '12/12' },
+    { label: 'RSP', val: 15, max: '42ms' },
+    { label: 'LOD', val: nodeLoad, max: 'NODE' }
   ];
 
   const clientModules = [
-    { id: 1, name: "ORG_PREFERENCES", icon: Settings, desc: "Configure brand identity and global rules.", href:`/orgs/${orgSlug}/settings/general` },
-    { id: 2, name: "TEAM_ACCESS", icon: Users, desc: "Manage operatives and role assignments.", href:`/orgs/${orgSlug}/settings/team` },
-    { id: 3, name: "API_GATEWAY", icon: Key, desc: "Generate and revoke integration keys.", href:`/orgs/${orgSlug}/settings/api` },
-    { id: 4, name: "SUBSCRIPTION", icon: CreditCard, desc: "Billing tier and resource allocation.", href:`/orgs/${orgSlug}/settings/billing` }
+    { id: 1, name: "ORG_PREFERENCES", icon: Settings, desc: "Configure brand identity and global rules.", href:`/${orgSlug}/settings` },
+    { id: 2, name: "TEAM_ACCESS", icon: Users, desc: "Manage operatives and role assignments.", href:`/${orgSlug}/settings` },
+    { id: 3, name: "API_GATEWAY", icon: Key, desc: "Generate and revoke integration keys.", href:`/${orgSlug}/settings` },
+    { id: 4, name: "SUBSCRIPTION", icon: CreditCard, desc: "Billing tier and resource allocation.", href:`/${orgSlug}/settings` }
   ];
 
   if (!isLoaded) return null;
 
   return (
-    <div className={`zenith-root ${isPoweringDown ? 'power-down' : ''}`}>
-      <style dangerouslySetInnerHTML={{ __html: ZENITH_STYLES }} />
+    <div className={`sudarshan-root ${isPoweringDown ? 'power-down' : ''} min-h-full`}>
+      <style dangerouslySetInnerHTML={{ __html: SUDARSHAN_STYLES }} />
       <canvas ref={canvasRef} className="particle-canvas" />
       
       {/* BACKGROUND LAYERS */}
@@ -130,7 +132,7 @@ export default function ClientSettings({ params }: { params?: { orgSlug?: string
       </div>
 
       {/* MAIN STAGE */}
-      <main className="zenith-stage" style={{ transform: isMobile ? 'none' : `rotateY(${mousePos.x * 0.04}deg) rotateX(${-mousePos.y * 0.04}deg)` }}>
+      <main className="sudarshan-stage" style={{ transform: isMobile ? 'none' : `rotateY(${mousePos.x * 0.04}deg) rotateX(${-mousePos.y * 0.04}deg)` }}>
         
         {/* LEFT: CLIENT IDENTITY */}
         <section className="identity-flank">
@@ -163,12 +165,12 @@ export default function ClientSettings({ params }: { params?: { orgSlug?: string
           </div>
         </section>
 
-        {/* CENTER: AVATAR CORE */}
+        {/* CENTER: SUDARSHAN AVATAR CORE */}
         <section className="nova-core-section">
           <div className="circular-orb-wrapper">
-            <div className="orb-ring ring-1" />
-            <div className="orb-ring ring-2" />
-            <div className="orb-ring ring-3" />
+            <div className="chakra-ring ring-1" />
+            <div className="chakra-ring ring-2" />
+            <div className="chakra-ring ring-3" />
             
             <div className="main-circle-avatar">
               <img src={user?.imageUrl || '/default-avatar.png'} alt="Profile" />
@@ -221,7 +223,7 @@ export default function ClientSettings({ params }: { params?: { orgSlug?: string
       </main>
 
       {/* FOOTER */}
-      <footer className="zenith-footer">
+      <footer className="sudarshan-footer">
         <div className="footer-left">
           <div className="pill-tag"><Globe size={10} /> {orgSlug.toUpperCase()}_ENV</div>
           <div className="pill-tag"><Server size={10} /> SECURE_TUNNEL</div>
@@ -239,23 +241,21 @@ export default function ClientSettings({ params }: { params?: { orgSlug?: string
 
     </div>
   );
-};
+}
 
-const ZENITH_STYLES = `
+const SUDARSHAN_STYLES = `
   @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Space+Grotesk:wght@300;400;500;700&family=JetBrains+Mono:wght@400;700&display=swap');
 
   :root {
-    --pink: #00f2ff; /* Swapped primary to cyan for client side */
-    --violet: #0088ff;
+    --pink: #00f2ff; 
+    --violet: #7b00ff;
     --cyan: #00ffff;
-    --bg: transparent; /* Let the parent layout handle the background color */
     --glass: rgba(5, 15, 25, 0.6);
     --border: rgba(0, 242, 255, 0.15);
     --glow: 0 0 25px rgba(0, 242, 255, 0.4);
   }
 
-  /* scoped inside zenith-root so it doesnt pollute the rest of your app */
-  .zenith-root { 
+  .sudarshan-root { 
     height: 100%; 
     width: 100%; 
     display: flex; 
@@ -265,10 +265,11 @@ const ZENITH_STYLES = `
     font-family: 'Space Grotesk', sans-serif;
     color: #fff;
     perspective: 1500px;
+    background: transparent;
   }
-  .zenith-root.power-down { filter: brightness(0) blur(40px); transform: scale(0.9); }
+  .sudarshan-root.power-down { filter: brightness(0) blur(40px); transform: scale(0.9); }
   
-  .particle-canvas { position: absolute; inset: 0; z-index: -2; opacity: 0.6; pointer-events: none; }
+  .particle-canvas { position: absolute; inset: 0; z-index: -2; opacity: 0.8; pointer-events: none; }
   .bg-layers { position: absolute; inset: 0; z-index: -3; pointer-events: none; overflow: hidden; }
   .vignette { position: absolute; inset: 0; background: radial-gradient(circle, transparent 40%, #000 120%); }
   .grain-overlay { position: absolute; inset: 0; background: url('https://grainy-gradients.vercel.app/noise.svg'); opacity: 0.05; mix-blend-mode: overlay; }
@@ -276,12 +277,12 @@ const ZENITH_STYLES = `
   .floating-glyphs { position: absolute; top: 15%; left: -5%; font-family: 'Syncopate'; font-size: 8vw; opacity: 0.03; white-space: nowrap; letter-spacing: -5px; }
 
   /* MAIN STAGE */
-  .zenith-stage { 
+  .sudarshan-stage { 
     flex: 1; 
     display: grid; 
     grid-template-columns: 1fr 1.2fr 1fr; 
     gap: 30px; 
-    padding: 20px; 
+    padding: 50px; 
     transform-style: preserve-3d; 
     z-index: 10; 
   }
@@ -289,7 +290,7 @@ const ZENITH_STYLES = `
   .identity-flank { display: flex; flex-direction: column; justify-content: center; transform: translateZ(40px); }
   .rank-strip { color: var(--pink); font-size: 10px; font-weight: 900; letter-spacing: 4px; margin-bottom: 10px; text-shadow: var(--glow); }
   .mega-name { font-family: 'Syncopate', sans-serif; font-size: clamp(2rem, 4vw, 4rem); line-height: 0.9; margin-bottom: 5px; letter-spacing: -2px; color: #fff; word-wrap: break-word;}
-  .surname { font-family: 'Syncopate'; font-size: 20px; color: var(--violet); opacity: 0.8; margin-bottom: 30px; }
+  .surname { font-family: 'Syncopate'; font-size: 20px; color: var(--violet); opacity: 0.8; margin-bottom: 30px; text-shadow: 0 0 10px var(--violet); }
   
   .bio-container { position: relative; padding: 15px; margin-bottom: 30px; }
   .bio-bracket { position: absolute; width: 20px; height: 20px; border: 2px solid var(--border); }
@@ -305,19 +306,48 @@ const ZENITH_STYLES = `
   .m-fill { height: 100%; background: linear-gradient(90deg, var(--violet), var(--pink)); box-shadow: 0 0 10px var(--pink); transition: 1s ease; }
   .m-val { font-family: 'JetBrains Mono'; font-size: 10px; color: #777; width: 45px; text-align: right; }
 
-  /* CENTER */
+  /* CENTER - SUDARSHAN CHAKRA CORE */
   .nova-core-section { display: flex; flex-direction: column; align-items: center; justify-content: center; transform: translateZ(80px); }
   .circular-orb-wrapper { width: 300px; height: 300px; position: relative; display: flex; align-items: center; justify-content: center; }
-  .orb-ring { position: absolute; border-radius: 50%; border: 1px solid var(--pink); opacity: 0.2; }
-  .ring-1 { inset: -15px; border-style: dashed; animation: rotate 30s linear infinite; }
-  .ring-2 { inset: 10px; border: 1px double var(--cyan); opacity: 0.15; animation: rotate 20s linear infinite reverse; }
-  .ring-3 { inset: -35px; border-style: dotted; opacity: 0.1; animation: rotate 40s linear infinite; }
+  
+  .chakra-ring { position: absolute; border-radius: 50%; }
+  
+  /* Outer weapon disc */
+  .ring-1 { 
+    width: 100%; height: 100%; 
+    border: 4px dashed rgba(0, 242, 255, 0.6); 
+    box-shadow: 0 0 40px rgba(0, 242, 255, 0.3), inset 0 0 20px rgba(0, 242, 255, 0.1);
+    animation: spin 3s linear infinite; 
+  }
+  
+  /* Mid containment field */
+  .ring-2 { 
+    width: 82%; height: 82%; 
+    border: 2px solid rgba(123, 0, 255, 0.8); 
+    border-top-color: transparent; border-bottom-color: transparent;
+    box-shadow: 0 0 50px rgba(123, 0, 255, 0.4), inset 0 0 30px rgba(123, 0, 255, 0.2);
+    animation: spin-rev 2s linear infinite; 
+  }
+  
+  /* Inner high-velocity track */
+  .ring-3 { 
+    width: 65%; height: 65%; 
+    border: 3px dashed var(--cyan); 
+    box-shadow: 0 0 30px var(--cyan), inset 0 0 10px var(--cyan);
+    animation: spin 1.5s linear infinite; 
+  }
 
-  .main-circle-avatar { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; border: 6px solid var(--glass); position: relative; z-index: 10; box-shadow: 0 0 40px rgba(0,242,255,0.2); }
+  /* Core Avatar */
+  .main-circle-avatar { 
+    width: 55%; height: 55%; 
+    border-radius: 50%; overflow: hidden; 
+    border: 3px solid var(--cyan); position: relative; z-index: 10; 
+    box-shadow: 0 0 40px rgba(0,242,255,0.6); 
+  }
   .main-circle-avatar img { width: 100%; height: 100%; object-fit: cover; }
-  .avatar-scanline { position: absolute; inset: 0; background: linear-gradient(transparent, rgba(0,242,255,0.2), transparent); height: 20%; animation: scan 3s linear infinite; }
+  .avatar-scanline { position: absolute; inset: 0; background: linear-gradient(transparent, rgba(0,242,255,0.3), transparent); height: 20%; animation: scan 3s linear infinite; }
 
-  .status-orbit { position: absolute; inset: 0; z-index: 20; animation: rotate 25s linear infinite; }
+  .status-orbit { position: absolute; inset: 0; z-index: 20; animation: spin 25s linear infinite; }
   .orb-bit { position: absolute; width: 26px; height: 26px; background: #000; border: 1px solid var(--pink); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--pink); box-shadow: 0 0 10px var(--pink); transition: 0.3s; }
   .orb-bit:hover { transform: scale(1.2); color: #000; background: var(--pink); }
   .s1 { top: -5%; left: 50%; transform: translateX(-50%); }
@@ -340,25 +370,26 @@ const ZENITH_STYLES = `
 
   .skill-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
   .skill-hex-card { background: rgba(0,0,0,0.5); padding: 12px 15px; border-radius: 8px; border: 1px solid rgba(0, 242, 255, 0.1); transition: all 0.2s ease; text-decoration: none; display: block; }
-  .skill-hex-card:hover { border-color: var(--pink); background: rgba(0, 242, 255, 0.05); transform: translateX(-5px); }
+  .skill-hex-card:hover { border-color: var(--pink); background: rgba(0, 242, 255, 0.05); transform: translateX(-5px); box-shadow: 0 0 15px rgba(0,242,255,0.2);}
   .hex-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
   .mod-icon { color: var(--pink); }
   .hex-top strong { font-size: 11px; color: #fff; letter-spacing: 1px; }
   .skill-hex-card p { font-size: 10px; color: #888; line-height: 1.4; margin: 0; }
 
-  .zenith-footer { display: flex; align-items: center; justify-content: space-between; padding: 15px 20px; border-top: 1px solid var(--border); background: rgba(0,0,0,0.3); z-index: 10; position: relative;}
+  .sudarshan-footer { display: flex; align-items: center; justify-content: space-between; padding: 15px 20px; border-top: 1px solid var(--border); background: rgba(0,0,0,0.3); z-index: 10; position: relative;}
   .pill-tag { font-size: 9px; background: rgba(0, 242, 255, 0.05); border: 1px solid var(--border); padding: 5px 12px; border-radius: 50px; color: #888; display: flex; align-items: center; gap: 6px; margin-right: 10px; font-weight: 700; }
   
   .shutdown-trigger { background: none; border: 1px solid #ff3e3e; color: #ff3e3e; padding: 8px; border-radius: 50%; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; }
   .shutdown-trigger:hover { background: #ff3e3e; color: #000; box-shadow: 0 0 15px #ff3e3e; transform: rotate(90deg); }
 
-  @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  @keyframes spin { 100% { transform: rotate(360deg); } }
+  @keyframes spin-rev { 100% { transform: rotate(-360deg); } }
   @keyframes scan { from { top: -30%; } to { top: 110%; } }
   @keyframes pulse { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.1); opacity: 0.4; } 100% { transform: scale(1); opacity: 1; } }
 
   /* --- RESPONSIVE MEDIA QUERIES --- */
   @media (max-width: 1200px) {
-    .zenith-stage { grid-template-columns: 1fr; text-align: center; gap: 40px; padding: 20px; }
+    .sudarshan-stage { grid-template-columns: 1fr; text-align: center; gap: 40px; padding: 20px; }
     .identity-flank, .nova-core-section, .modules-flank { transform: none !important; align-items: center; }
     .bio-container { max-width: 100%; margin: 0 auto 30px; }
     .circular-orb-wrapper { width: 250px; height: 250px; margin: 0 auto; }

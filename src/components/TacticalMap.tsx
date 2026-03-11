@@ -54,7 +54,7 @@ const MapFocusHandler = ({ center, zoom }: { center: [number, number], zoom: num
 
 // --- MAIN OS INTERFACE ---
 
-export default function VoltGuardCinemaOS() {
+export default function SudarshanCinemaOS() {
   const { user } = useUser();
   const [isMounted, setIsMounted] = useState(false);
   const [activeNode, setActiveNode] = useState(MASTER_DATA[0]);
@@ -68,7 +68,7 @@ export default function VoltGuardCinemaOS() {
   useEffect(() => {
     setIsMounted(true);
     const bootSequence = [
-      ">> INITIALIZING VOLTGUARD_CORE_v12.5...",
+      ">> INITIALIZING SUDARSHAN CORE_CORE_v12.5...",
       ">> CLERK_AUTH_SESSION: VALIDATED",
       ">> MESH_NETWORK_DISCOVERY: 1,000 NODES FOUND",
       ">> APPLYING TACTICAL_DARK_LAYER...",
@@ -113,7 +113,7 @@ export default function VoltGuardCinemaOS() {
         <div className="nav-group">
           <Ghost className="os-logo" size={28} />
           <div className="os-brand">
-            <h1>VOLTGUARD <span className="text-glitch">CINEMA_OS</span></h1>
+            <h1>SUDARSHAN CORE <span className="text-glitch">CINEMA_OS</span></h1>
             <p>ID: {user?.id?.slice(-8) || "GHOST_OPERATOR"}</p>
           </div>
         </div>
@@ -276,7 +276,7 @@ export default function VoltGuardCinemaOS() {
       {/* FOOTER BAR */}
       <footer className="os-footer">
         <div className="f-left"><Server size={10}/> HYDERABAD_GRID_CENTRAL</div>
-        <div className="f-center">VOLTGUARD // ENCRYPTED_CHANNEL_A1</div>
+        <div className="f-center">SUDARSHAN CORE // ENCRYPTED_CHANNEL_A1</div>
         <div className="f-right">BUILD_2026.01.30_v12</div>
       </footer>
 

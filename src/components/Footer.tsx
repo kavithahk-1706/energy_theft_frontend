@@ -2,12 +2,66 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useUser } from '@clerk/nextjs';
 import { Activity, ShieldCheck, Zap } from 'lucide-react';
 
-export default function VoltGuardFooter() {
+export default function SudarshanFooter() {
+  const {isLoaded, isSignedIn, user}=useUser();
   const currentYear = new Date().getFullYear();
   const [mounted, setMounted] = useState(false);
   
+  const metadata = user?.publicMetadata as { role?: string; orgSlug?: string; orgName?: string };
+  const role = metadata?.role || 'client';
+  const isOwner = user?.primaryEmailAddress?.emailAddress === "pradhyumnavojjala@gmail.com" || user?.primaryEmailAddress?.emailAddress === "kavithahaimakidambi0613@gmail.com";
+  const finalRole = isOwner ? 'owner' : role;
+  const orgSlug = metadata?.orgSlug || 'demo-utility';
+
+
+  const getFooterConfig = () => {
+      if (finalRole === 'owner') {
+        return [
+          { 
+            id: 'home', name: 'HOME', href: '/',
+            
+          },
+          { 
+            id: 'manage', name: 'MANAGE_CLIENTS', href: '/manage-clients',
+            
+          },
+          { 
+            id: 'logs', name: 'CLIENT_LOGS', href: '/client-logs',
+            
+          },
+          { id: 'profile', name: 'ADMIN_CONSOLE', href: '/profile' }, 
+        ];
+      } else {
+        return [
+          {
+            id: 'home', name: 'HOME', href: '/',
+          },
+          { 
+            id: 'dashboard', name: 'OVERVIEW', href: `/${orgSlug}`,
+      
+          },
+          { 
+            id: 'predict', name: 'THEFT_DETECTION', href: `/${orgSlug}/predict`,
+      
+          },
+          { 
+            id: 'metrics', name: 'MODEL_METRICS', href: `/${orgSlug}/model-metrics`,
+    
+          },
+          { 
+            id: 'logs', name: 'CONSUMPTION_LOGS',  href: `/${orgSlug}/logs`,      
+          },
+          { 
+            id: 'settings', name: 'SETTINGS', href: `/${orgSlug}/settings`
+          },
+        ];
+      }
+    };
+
+    const currentFooterLinks=getFooterConfig();
   // Prevent hydration mismatch on time display
   useEffect(() => { setMounted(true); }, []);
 
@@ -21,7 +75,7 @@ export default function VoltGuardFooter() {
         <div className="footer-left">
           <div className="brand-lockup">
             <Zap size={18} className="text-cyan" />
-            <span className="brand-text">VOLTGUARD_ENTERPRISE</span>
+            <span className="brand-text">SUDARSHAN_CORE_ENTERPRISE</span>
           </div>
           
           <div className="status-row">
@@ -38,20 +92,21 @@ export default function VoltGuardFooter() {
           </div>
           
           <p className="copyright">
-            © {currentYear} VoltGuard Industries. All rights reserved.
+            © {currentYear} Sudarshan Core Industries. All rights reserved.
             <br />
             <span>Smart Grid Energy Theft Detection Analytics Platform v1.2</span>
           </p>
         </div>
 
+        
+
         {/* RIGHT: REAL NAVIGATION ONLY */}
         <div className="footer-right">
           <h4 className="nav-header">SYSTEM_NAVIGATION</h4>
           <nav className="nav-links">
-            <Link href="/" className="f-link">COMMAND_CENTER</Link>
-            <Link href="/map" className="f-link">MANAGE_CLIENTS</Link>
-            <Link href="/history" className="f-link">AUDIT_LOGS</Link>
-            <Link href="/profile" className="f-link">ADMIN_PROFILE</Link>
+            {currentFooterLinks.map((link)=>(
+              <Link id={link.id} href={link.href} key={link.id} className="f-link">{link.name}</Link>
+            ))}
           </nav>
         </div>
 

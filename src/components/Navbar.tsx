@@ -11,7 +11,7 @@ import {
   Layers, ShieldCheck, Radio, Menu, X
 } from 'lucide-react';
 
-export default function VoltGuardNavbar() {
+export default function SudarshanNavbar() {
   const { isLoaded, isSignedIn, user } = useUser();
   const [activeTab, setActiveTab] = useState<string | null>(null);
   const [systemTime, setSystemTime] = useState("");
@@ -46,32 +46,33 @@ export default function VoltGuardNavbar() {
       ];
     } else {
       return [
+        {
+          id: 'home', label: 'HOME', icon: Home, href: '/',
+        },
         { 
           id: 'dashboard', label: 'OVERVIEW', icon: LayoutDashboard, href: `/${orgSlug}`,
+    
+        },
+        { 
+          id: 'predict', label: 'THEFT_DETECTION', icon: Cpu, href: `/${orgSlug}/predict`,
           subLinks: [
-            { label: 'Download Report', href: `/${orgSlug}`, icon: FileText },
-            { label: 'Grid Status', href: `/${orgSlug}`, icon: Activity }
+            { label: 'Batch Prediction', href: `/${orgSlug}/predict`, icon: Layers },
+            { label: 'Single Prediction', href: `/${orgSlug}/predict`, icon: Zap },
+            
           ]
         },
         { 
-          id: 'analytics', label: 'THEFT_DETECTION', icon: Cpu, href: `/${orgSlug}/analytics`,
+          id: 'metrics', label: 'MODEL_METRICS', icon: ChartLine, href: `/${orgSlug}/model-metrics`,
           subLinks: [
-            { label: 'Real-time Scan', href: `/${orgSlug}/analytics`, icon: Zap },
-            { label: 'Batch Upload', href: `/${orgSlug}/analytics`, icon: Layers }
+            { label: 'View Metrics', href: `/${orgSlug}/model-metrics`, icon: Activity },
+            { label: 'Download Metric Report', href: `/${orgSlug}/model-metrics`, icon: Download }
           ]
         },
         { 
-          id: 'metrics', label: 'MODEL_METRICS', icon: ChartLine, href: `/${orgSlug}/metrics`,
+          id: 'logs', label: 'CONSUMPTION_LOGS', icon: Database, href: `/${orgSlug}/logs`,
           subLinks: [
-            { label: 'Accuracy Score', href: `/${orgSlug}/metrics`, icon: Activity },
-            { label: 'Confusion Matrix', href: `/${orgSlug}/metrics`, icon: Layers }
-          ]
-        },
-        { 
-          id: 'logs', label: 'CONSUMPTION_LOGS', icon: Database, href: `/${orgSlug}/infrastructure`,
-          subLinks: [
-            { label: 'Raw Data', href: `/${orgSlug}/infrastructure`, icon: Database },
-            { label: 'Export CSV', href: `/${orgSlug}/infrastructure`, icon: Download }
+            { label: 'Raw Data', href: `/${orgSlug}/logs`, icon: Database },
+            { label: 'Export CSV', href: `/${orgSlug}/logs`, icon: Download }
           ]
         },
         { id: 'settings', label: 'SETTINGS', icon: Settings, href: `/${orgSlug}/settings` },
@@ -107,7 +108,7 @@ export default function VoltGuardNavbar() {
               <Zap size={20} fill="currentColor" />
             </div>
             <div className="brand-titles">
-              <h1 className="main-title">VOLTGUARD</h1>
+              <h1 className="main-title">SUDARSHAN CORE</h1>
               <p className="sub-title" style={{ color: accentColor }}>{finalRole.toUpperCase()}_CONSOLE</p>
             </div>
           </Link>
