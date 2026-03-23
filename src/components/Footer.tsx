@@ -3,70 +3,57 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useUser } from '@clerk/nextjs';
+import { usePathname } from 'next/navigation';
 import { Activity, ShieldCheck, Zap } from 'lucide-react';
 
 export default function SudarshanFooter() {
   const {isLoaded, isSignedIn, user}=useUser();
+  const pathname = usePathname();
   const currentYear = new Date().getFullYear();
   const [mounted, setMounted] = useState(false);
   
   const metadata = user?.publicMetadata as { role?: string; orgSlug?: string; orgName?: string };
   const role = metadata?.role || 'client';
   const isOwner = user?.primaryEmailAddress?.emailAddress === "pradhyumnavojjala@gmail.com" || user?.primaryEmailAddress?.emailAddress === "kavithahaimakidambi0613@gmail.com";
-  const finalRole = isOwner ? 'owner' : role;
-  const orgSlug = metadata?.orgSlug || 'demo-utility';
+  
+  // --- IMPERSONATION LOGIC ---
+  const pathSegment = pathname?.split('/')[1] || '';
+  const ownerRoutes = ['manage-clients', 'client-logs', 'profile', 'map', '']; 
+  const isImpersonating = isOwner && pathSegment && !ownerRoutes.includes(pathSegment);
 
+  const finalRole = isOwner ? 'owner' : role;
+  // If impersonating, render client links!
+  const displayRole = isImpersonating ? 'client' : finalRole;
+  // If impersonating, use the URL slug for links!
+  const activeSlug = isImpersonating ? pathSegment : (metadata?.orgSlug || 'demo-utility');
 
   const getFooterConfig = () => {
-      if (finalRole === 'owner') {
+      if (displayRole === 'owner') {
         return [
-          { 
-            id: 'home', name: 'HOME', href: '/',
-            
-          },
-          { 
-            id: 'manage', name: 'MANAGE_CLIENTS', href: '/manage-clients',
-            
-          },
-          { 
-            id: 'logs', name: 'CLIENT_LOGS', href: '/client-logs',
-            
-          },
+          { id: 'home', name: 'HOME', href: '/' },
+          { id: 'manage', name: 'MANAGE_CLIENTS', href: '/manage-clients' },
+          { id: 'logs', name: 'CLIENT_LOGS', href: '/client-logs' },
           { id: 'profile', name: 'ADMIN_CONSOLE', href: '/profile' }, 
         ];
       } else {
         return [
-          {
-            id: 'home', name: 'HOME', href: '/',
-          },
-          { 
-            id: 'dashboard', name: 'OVERVIEW', href: `/${orgSlug}`,
-      
-          },
-          { 
-            id: 'predict', name: 'THEFT_DETECTION', href: `/${orgSlug}/predict`,
-      
-          },
-          { 
-            id: 'metrics', name: 'MODEL_METRICS', href: `/${orgSlug}/model-metrics`,
-    
-          },
-          { 
-            id: 'logs', name: 'CONSUMPTION_LOGS',  href: `/${orgSlug}/logs`,      
-          },
-          { 
-            id: 'settings', name: 'SETTINGS', href: `/${orgSlug}/settings`
-          },
+          { id: 'home', name: 'HOME', href: '/' },
+          { id: 'dashboard', name: 'OVERVIEW', href: `/${activeSlug}` },
+          { id: 'predict', name: 'THEFT_DETECTION', href: `/${activeSlug}/predict` },
+          { id: 'metrics', name: 'MODEL_METRICS', href: `/${activeSlug}/metrics` }, // FIXED TO /metrics
+          { id: 'logs', name: 'CONSUMPTION_LOGS',  href: `/${activeSlug}/logs` },
+          { id: 'settings', name: 'SETTINGS', href: `/${activeSlug}/settings` },
         ];
       }
     };
 
     const currentFooterLinks=getFooterConfig();
+
   // Prevent hydration mismatch on time display
   useEffect(() => { setMounted(true); }, []);
 
   return (
-    <footer className="vg-footer-root">
+    <footer className="vg-footer-root z-50 relative">
       <style dangerouslySetInnerHTML={{ __html: footerStyles }} />
       
       <div className="footer-container">
@@ -74,8 +61,14 @@ export default function SudarshanFooter() {
         {/* LEFT: BRAND & STATUS */}
         <div className="footer-left">
           <div className="brand-lockup">
-            <Zap size={18} className="text-cyan" />
-            <span className="brand-text">SUDARSHAN_CORE_ENTERPRISE</span>
+            {isImpersonating ? (
+              <ShieldCheck size={18} className="text-purple animate-pulse" />
+            ) : (
+              <Zap size={18} className={isOwner ? "text-purple" : "text-cyan"} />
+            )}
+            <span className="brand-text" style={{ color: isImpersonating ? '#b366ff' : 'inherit' }}>
+              {isImpersonating ? 'ADMIN_OVERRIDE_ACTIVE' : 'SUDARSHAN_CORE_ENTERPRISE'}
+            </span>
           </div>
           
           <div className="status-row">
@@ -84,7 +77,7 @@ export default function SudarshanFooter() {
               <span>SYSTEM_ONLINE</span>
             </div>
             <div className="status-indicator">
-              <Activity size={12} className="text-purple" />
+              <Activity size={12} className={isOwner || isImpersonating ? "text-purple" : "text-cyan"} />
               <span className="mono">
                 {mounted ? new Date().toLocaleTimeString() : "--:--:--"}
               </span>
@@ -98,14 +91,14 @@ export default function SudarshanFooter() {
           </p>
         </div>
 
-        
-
         {/* RIGHT: REAL NAVIGATION ONLY */}
         <div className="footer-right">
           <h4 className="nav-header">SYSTEM_NAVIGATION</h4>
           <nav className="nav-links">
             {currentFooterLinks.map((link)=>(
-              <Link id={link.id} href={link.href} key={link.id} className="f-link">{link.name}</Link>
+              <Link id={link.id} href={link.href} key={link.id} className={`f-link ${isImpersonating ? 'hover-purple' : ''}`}>
+                {link.name}
+              </Link>
             ))}
           </nav>
         </div>
@@ -213,6 +206,10 @@ const footerStyles = `
   .f-link:hover {
     color: #00f2ff;
     padding-left: 5px;
+  }
+
+  .f-link.hover-purple:hover {
+    color: #7b00ff;
   }
 
   /* UTILS */

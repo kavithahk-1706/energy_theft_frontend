@@ -11,9 +11,12 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   //}
 
   return (
-    <div className="admin-container">
-      {/* You can add an Admin-specific Sidebar here */}
-      <main className="p-8">{children}</main>
+    // Replaced the random admin-container with proper flexbox routing to match client
+    <div className="flex flex-col min-h-screen">
+      {/* Removed the hardcoded p-8 from main so the individual pages can handle their own padding */}
+      <main className="flex-1 flex flex-col w-full">
+        {children}
+      </main>
     </div>
   );
 }

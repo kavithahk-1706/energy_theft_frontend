@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { UserButton, useUser, SignInButton } from "@clerk/nextjs";
+import { usePathname } from 'next/navigation'; // <-- WE NEED THIS TO READ THE URL
 import { motion, AnimatePresence } from "framer-motion";
 import Link from 'next/link';
 import { 
@@ -13,6 +14,7 @@ import {
 
 export default function SudarshanNavbar() {
   const { isLoaded, isSignedIn, user } = useUser();
+  const pathname = usePathname(); // <-- READ THE URL
   const [activeTab, setActiveTab] = useState<string | null>(null);
   const [systemTime, setSystemTime] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -20,62 +22,59 @@ export default function SudarshanNavbar() {
   // 1. ROLE & SLUG DETECTION
   const metadata = user?.publicMetadata as { role?: string; orgSlug?: string; orgName?: string };
   const role = metadata?.role || 'client';
-  const orgSlug = metadata?.orgSlug || 'demo-utility';
+  const metaSlug = metadata?.orgSlug || 'demo-utility';
 
   const isOwner = user?.primaryEmailAddress?.emailAddress === "pradhyumnavojjala@gmail.com" || user?.primaryEmailAddress?.emailAddress === "kavithahaimakidambi0613@gmail.com";
+  
+  // --- IMPERSONATION LOGIC ---
+  const pathSegment = pathname?.split('/')[1] || '';
+  const ownerRoutes = ['manage-clients', 'client-logs', 'profile', 'map', '']; 
+  const isImpersonating = isOwner && pathSegment && !ownerRoutes.includes(pathSegment);
+
   const finalRole = isOwner ? 'owner' : role;
+  // If we are impersonating, force the navbar to render the client links!
+  const displayRole = isImpersonating ? 'client' : finalRole;
+  // If we are impersonating, use the URL slug for the links, NOT the owner's metadata slug!
+  const activeSlug = isImpersonating ? pathSegment : metaSlug;
+  
   const accentColor = isOwner ? '#7b00ff' : '#00f2ff';
 
   // 2. NAVIGATION CONFIGURATION
   const getNavConfig = () => {
-    if (finalRole === 'owner') {
+    if (displayRole === 'owner') {
       return [
-        { 
-          id: 'home', label: 'HOME', icon: Home, href: '/',
-          
-        },
-        { 
-          id: 'manage', label: 'MANAGE_CLIENTS', icon: Network, href: '/manage-clients',
-          
-        },
-        { 
-          id: 'logs', label: 'CLIENT_LOGS', icon: Database, href: '/client-logs',
-          
-        },
+        { id: 'home', label: 'HOME', icon: Home, href: '/' },
+        { id: 'manage', label: 'MANAGE_CLIENTS', icon: Network, href: '/manage-clients' },
+        { id: 'logs', label: 'CLIENT_LOGS', icon: Database, href: '/client-logs' },
         { id: 'profile', label: 'ADMIN_CONSOLE', icon: User, href: '/profile' }, 
       ];
     } else {
       return [
-        {
-          id: 'home', label: 'HOME', icon: Home, href: '/',
-        },
+        { id: 'home', label: 'HOME', icon: Home, href: '/' },
+        { id: 'dashboard', label: 'OVERVIEW', icon: LayoutDashboard, href: `/${activeSlug}` },
         { 
-          id: 'dashboard', label: 'OVERVIEW', icon: LayoutDashboard, href: `/${orgSlug}`,
-    
-        },
-        { 
-          id: 'predict', label: 'THEFT_DETECTION', icon: Cpu, href: `/${orgSlug}/predict`,
+          id: 'predict', label: 'THEFT_DETECTION', icon: Cpu, href: `/${activeSlug}/predict`,
           subLinks: [
-            { label: 'Batch Prediction', href: `/${orgSlug}/predict`, icon: Layers },
-            { label: 'Single Prediction', href: `/${orgSlug}/predict`, icon: Zap },
-            
+            { label: 'Batch Prediction', href: `/${activeSlug}/predict`, icon: Layers },
+            { label: 'Single Prediction', href: `/${activeSlug}/predict`, icon: Zap },
           ]
         },
         { 
-          id: 'metrics', label: 'MODEL_METRICS', icon: ChartLine, href: `/${orgSlug}/model-metrics`,
+          // FIXED THIS LINK SO IT GOES TO /metrics AND NOT /model-metrics
+          id: 'metrics', label: 'MODEL_METRICS', icon: ChartLine, href: `/${activeSlug}/metrics`,
           subLinks: [
-            { label: 'View Metrics', href: `/${orgSlug}/model-metrics`, icon: Activity },
-            { label: 'Download Metric Report', href: `/${orgSlug}/model-metrics`, icon: Download }
+            { label: 'View Metrics', href: `/${activeSlug}/metrics`, icon: Activity },
+            { label: 'Download Metric Report', href: `/${activeSlug}/metrics`, icon: Download }
           ]
         },
         { 
-          id: 'logs', label: 'CONSUMPTION_LOGS', icon: Database, href: `/${orgSlug}/logs`,
+          id: 'logs', label: 'CONSUMPTION_LOGS', icon: Database, href: `/${activeSlug}/logs`,
           subLinks: [
-            { label: 'Raw Data', href: `/${orgSlug}/logs`, icon: Database },
-            { label: 'Export CSV', href: `/${orgSlug}/logs`, icon: Download }
+            { label: 'Raw Data', href: `/${activeSlug}/logs`, icon: Database },
+            { label: 'Export CSV', href: `/${activeSlug}/logs`, icon: Download }
           ]
         },
-        { id: 'settings', label: 'SETTINGS', icon: Settings, href: `/${orgSlug}/settings` },
+        { id: 'settings', label: 'SETTINGS', icon: Settings, href: `/${activeSlug}/settings` },
       ];
     }
   };
@@ -95,8 +94,6 @@ export default function SudarshanNavbar() {
   return (
     <header className="vg-enterprise-header" onMouseLeave={() => setActiveTab(null)}>
       <style dangerouslySetInnerHTML={{ __html: enterpriseStyles }} />
-      
-      
 
       {/* MAIN NAV */}
       <nav className="main-nav-hub">
@@ -109,7 +106,9 @@ export default function SudarshanNavbar() {
             </div>
             <div className="brand-titles">
               <h1 className="main-title">SUDARSHAN CORE</h1>
-              <p className="sub-title" style={{ color: accentColor }}>{finalRole.toUpperCase()}_CONSOLE</p>
+              <p className="sub-title" style={{ color: accentColor }}>
+                {isImpersonating ? 'ADMIN_OVERRIDE' : `${finalRole.toUpperCase()}_CONSOLE`}
+              </p>
             </div>
           </Link>
 
@@ -165,8 +164,6 @@ export default function SudarshanNavbar() {
 
           {/* CONTROLS & AUTH */}
           <div className="control-center">
-      
-
             <div className="auth-module">
               {isSignedIn ? (
                 <div className="user-card">

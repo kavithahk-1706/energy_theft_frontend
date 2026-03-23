@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
-import { useUser, SignOutButton } from "@clerk/nextjs";
+import { useUser, SignOutButton, UserProfile } from "@clerk/nextjs";
 import { 
   Lock, Terminal, Database, Shield, Activity, 
   Fingerprint, Globe, Power, Server, Wifi 
@@ -19,7 +19,7 @@ export default function AdminProfile() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   
   // --- STATE ---
-  const [activeTab, setActiveTab] = useState('SYSTEM');
+  const [activeTab, setActiveTab] = useState<'SYSTEM' | 'ACCOUNT'>('SYSTEM');
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isPoweringDown, setIsPoweringDown] = useState(false);
   const [systemLoad, setSystemLoad] = useState(12);
@@ -35,6 +35,8 @@ export default function AdminProfile() {
 
   // --- 1. HIGH-SPEED TELEMETRY DATA STREAM ---
   useEffect(() => {
+    if (activeTab !== 'SYSTEM') return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -56,6 +58,7 @@ export default function AdminProfile() {
       for (let i = 0; i < 100; i++) particles.push(createParticle());
     };
 
+    let animationId: number;
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       particles.forEach(p => {
@@ -68,18 +71,21 @@ export default function AdminProfile() {
         ctx.fillStyle = `rgba(139, 0, 255, ${p.opacity})`;
         ctx.fillRect(p.x, p.y, 2, p.length);
       });
-      requestAnimationFrame(animate);
+      animationId = requestAnimationFrame(animate);
     };
 
     init();
     animate();
     window.addEventListener('resize', init);
-    return () => window.removeEventListener('resize', init);
-  }, []);
+    return () => {
+      window.removeEventListener('resize', init);
+      cancelAnimationFrame(animationId);
+    };
+  }, [activeTab]);
 
   // --- 2. MOUSE TILT EFFECT (Disabled on mobile) ---
   useEffect(() => {
-    if (isMobile) return;
+    if (isMobile || activeTab !== 'SYSTEM') return;
     const handleMouseMove = (e: MouseEvent) => {
       setMousePos({
         x: (e.clientX / window.innerWidth - 0.5) * 20,
@@ -88,7 +94,7 @@ export default function AdminProfile() {
     };
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [isMobile]);
+  }, [isMobile, activeTab]);
 
   // --- 3. REALISTIC DATA SIMULATION ---
   useEffect(() => {
@@ -118,107 +124,154 @@ export default function AdminProfile() {
   return (
     <div className={`sudarshan-root ${isPoweringDown ? 'power-down' : ''}`}>
       <style dangerouslySetInnerHTML={{ __html: SUDARSHAN_STYLES }} />
-      <canvas ref={canvasRef} className="particle-canvas" />
       
-      {/* BACKGROUND LAYERS */}
-      <div className="bg-layers">
-        <div className="vignette" />
-        <div className="grain-overlay" />
-        <div className="nebula-glow" style={{ transform: isMobile ? 'none' : `translate(${mousePos.x * 2}px, ${mousePos.y * 2}px)` }} />
-        <div className="floating-glyphs">SUDARSHAN CORE // SYSTEM_ADMIN // SECURE_SHELL</div>
+      {/* TOGGLE BAR */}
+      <div className="w-full flex justify-center pb-4 z-50 relative">
+        <div className="bg-black/50 border border-white/10 p-1 rounded-lg inline-flex gap-1 backdrop-blur-md shadow-2xl">
+          <button 
+            onClick={() => setActiveTab('SYSTEM')}
+            className={`px-6 py-2 text-[10px] md:text-xs font-bold tracking-widest rounded-md transition-all ${
+              activeTab === 'SYSTEM' 
+              ? 'bg-purple-500/20 text-purple-400 border border-purple-500/50 shadow-[0_0_15px_rgba(139,0,255,0.3)]' 
+              : 'text-white/40 hover:text-white/80 border border-transparent'
+            }`}
+          >
+            SYSTEM_TELEMETRY
+          </button>
+          <button 
+            onClick={() => setActiveTab('ACCOUNT')}
+            className={`px-6 py-2 text-[10px] md:text-xs font-bold tracking-widest rounded-md transition-all ${
+              activeTab === 'ACCOUNT' 
+              ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/50 shadow-[0_0_15px_rgba(0,242,255,0.3)]' 
+              : 'text-white/40 hover:text-white/80 border border-transparent'
+            }`}
+          >
+            ACCOUNT_SECURITY
+          </button>
+        </div>
       </div>
 
-      {/* MAIN STAGE */}
-      <main className="sudarshan-stage" style={{ transform: isMobile ? 'none' : `rotateY(${mousePos.x * 0.04}deg) rotateX(${-mousePos.y * 0.04}deg)` }}>
-        
-        {/* LEFT: ADMIN IDENTITY */}
-        <section className="identity-flank">
-          <div className="typography-block">
-            <div className="rank-strip">SYSTEM_ADMINISTRATOR // LEVEL_5</div>
-            <h1 className="mega-name">
-              {user?.firstName?.toUpperCase() || 'ADMIN'}
-            </h1>
-            <h2 className="surname">{user?.lastName?.toUpperCase() || 'USER'}</h2>
-            
-            <div className="bio-container">
-              <div className="bio-bracket top" />
-              <p className="lore-para">
-                Primary architect for the Sudarshan Forensic Platform. 
-                Responsible for global grid integrity, client onboarding, and ML model deployment.
-              </p>
-              <div className="bio-bracket bottom" />
-            </div>
-          </div>
-
-          <div className="stats-matrix">
-            <div className="panel-tag">SERVER_TELEMETRY</div>
-            {sysStats.map(stat => (
-              <div key={stat.label} className="matrix-item">
-                <div className="m-label">{stat.label}</div>
-                <div className="m-bar"><div className="m-fill" style={{width: `${stat.val}%`}} /></div>
-                <div className="m-val">{stat.max}</div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* CENTER: AVATAR CORE */}
-        <section className="nova-core-section">
-          <div className="circular-orb-wrapper">
-            <div className="chakra-ring ring-1" />
-            <div className="chakra-ring ring-2" />
-            <div className="chakra-ring ring-3" />
-            
-            <div className="main-circle-avatar">
-              <img src={user?.imageUrl || '/default-avatar.png'} alt="Profile" />
-              <div className="avatar-scanline" />
-            </div>
-
-            <div className="status-orbit">
-              <div className="orb-bit s1"><Database size={14} /></div>
-              <div className="orb-bit s2"><Shield size={14} /></div>
-              <div className="orb-bit s3"><Activity size={14} /></div>
-              <div className="orb-bit s4"><Fingerprint size={14} /></div>
-            </div>
-          </div>
-
-          <div className="sync-status">
-            <div className="sync-label">PLATFORM_HEALTH</div>
-            <div className="sync-val">OPTIMAL</div>
-            <div className="sync-wave">
-              {[1, 2, 3, 4, 5].map(i => <div key={i} className="wave-segment" />)}
-            </div>
-          </div>
-        </section>
-
-        {/* RIGHT: PROFESSIONAL MODULES */}
-        <section className="modules-flank">
+      {activeTab === 'ACCOUNT' ? (
+        // ================= CLERK ACCOUNT TAB =================
+        <div className="flex-1 flex justify-center pt-10 px-4 relative z-40 pb-20">
+          <UserProfile 
+            routing="hash"
+            appearance={{
+              elements: {
+                rootBox: "w-full max-w-4xl font-sans",
+                card: "bg-white/5 border border-white/10 shadow-2xl backdrop-blur-md",
+                headerTitle: "text-white font-black",
+                headerSubtitle: "text-white/60",
+              }
+            }}
+          />
+        </div>
+      ) : (
+        // ================= SCI-FI SYSTEM TAB =================
+        <>
+          <canvas ref={canvasRef} className="particle-canvas" />
           
-          {/* PERMISSIONS PANEL */}
-          <div className="module-panel">
-            <div className="panel-header">
-              <Lock size={14} /> 
-              <span>ACTIVE_PERMISSIONS</span>
-              <div className="header-line" />
-            </div>
-            <div className="skill-grid">
-              {adminPermissions.map(perm => (
-                <Link key={perm.id} href={perm.href} className="skill-hex-card clickable-card">
-                  <div className="hex-top">
-                    <strong>{perm.name}</strong>
-                    <span className="lvl-badge">{perm.lv}</span>
-                  </div>
-                  <p>{perm.desc}</p>
-                </Link>
-              ))}
-            </div>
+          {/* BACKGROUND LAYERS */}
+          <div className="bg-layers">
+            <div className="vignette" />
+            <div className="grain-overlay" />
+            <div className="nebula-glow" style={{ transform: isMobile ? 'none' : `translate(${mousePos.x * 2}px, ${mousePos.y * 2}px)` }} />
+            <div className="floating-glyphs">SUDARSHAN CORE // SYSTEM_ADMIN // SECURE_SHELL</div>
           </div>
 
-        </section>
-      </main>
+          {/* MAIN STAGE */}
+          <main className="sudarshan-stage" style={{ transform: isMobile ? 'none' : `rotateY(${mousePos.x * 0.04}deg) rotateX(${-mousePos.y * 0.04}deg)` }}>
+            
+            {/* LEFT: ADMIN IDENTITY */}
+            <section className="identity-flank">
+              <div className="typography-block">
+                <div className="rank-strip">SYSTEM_ADMINISTRATOR // LEVEL_5</div>
+                <h1 className="mega-name">
+                  {user?.firstName?.toUpperCase() || 'ADMIN'}
+                </h1>
+                <h2 className="surname">{user?.lastName?.toUpperCase() || 'USER'}</h2>
+                
+                <div className="bio-container">
+                  <div className="bio-bracket top" />
+                  <p className="lore-para">
+                    Primary architect for the Sudarshan Forensic Platform. 
+                    Responsible for global grid integrity, client onboarding, and ML model deployment.
+                  </p>
+                  <div className="bio-bracket bottom" />
+                </div>
+              </div>
+
+              <div className="stats-matrix">
+                <div className="panel-tag">SERVER_TELEMETRY</div>
+                {sysStats.map(stat => (
+                  <div key={stat.label} className="matrix-item">
+                    <div className="m-label">{stat.label}</div>
+                    <div className="m-bar"><div className="m-fill" style={{width: `${stat.val}%`}} /></div>
+                    <div className="m-val">{stat.max}</div>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* CENTER: AVATAR CORE */}
+            <section className="nova-core-section">
+              <div className="circular-orb-wrapper">
+                <div className="chakra-ring ring-1" />
+                <div className="chakra-ring ring-2" />
+                <div className="chakra-ring ring-3" />
+                
+                <div className="main-circle-avatar">
+                  <img src={user?.imageUrl || '/default-avatar.png'} alt="Profile" />
+                  <div className="avatar-scanline" />
+                </div>
+
+                <div className="status-orbit">
+                  <div className="orb-bit s1"><Database size={14} /></div>
+                  <div className="orb-bit s2"><Shield size={14} /></div>
+                  <div className="orb-bit s3"><Activity size={14} /></div>
+                  <div className="orb-bit s4"><Fingerprint size={14} /></div>
+                </div>
+              </div>
+
+              <div className="sync-status">
+                <div className="sync-label">PLATFORM_HEALTH</div>
+                <div className="sync-val">OPTIMAL</div>
+                <div className="sync-wave">
+                  {[1, 2, 3, 4, 5].map(i => <div key={i} className="wave-segment" />)}
+                </div>
+              </div>
+            </section>
+
+            {/* RIGHT: PROFESSIONAL MODULES */}
+            <section className="modules-flank">
+              
+              {/* PERMISSIONS PANEL */}
+              <div className="module-panel">
+                <div className="panel-header">
+                  <Lock size={14} /> 
+                  <span>ACTIVE_PERMISSIONS</span>
+                  <div className="header-line" />
+                </div>
+                <div className="skill-grid">
+                  {adminPermissions.map(perm => (
+                    <Link key={perm.id} href={perm.href} className="skill-hex-card clickable-card">
+                      <div className="hex-top">
+                        <strong>{perm.name}</strong>
+                        <span className="lvl-badge">{perm.lv}</span>
+                      </div>
+                      <p>{perm.desc}</p>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+            </section>
+          </main>
+        </>
+      )}
 
       {/* FOOTER */}
-      <footer className="sudarshan-footer">
+      <footer className="sudarshan-footer mt-auto">
         <div className="footer-left">
           <div className="pill-tag"><Globe size={10} /> HYDERABAD_HQ</div>
           <div className="pill-tag"><Server size={10} /> PROD_ENV</div>
@@ -236,7 +289,7 @@ export default function AdminProfile() {
 
     </div>
   );
-};
+}
 
 const SUDARSHAN_STYLES = `
   @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Space+Grotesk:wght@300;400;500;700&family=JetBrains+Mono:wght@400;700&display=swap');

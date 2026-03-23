@@ -1,14 +1,14 @@
 "use client";
 
+import React, { use } from 'react';
 import Link from 'next/link';
 import { Target, Activity, ShieldAlert, Zap, ArrowRight, Database, Server, ExternalLink } from 'lucide-react';
 
-import React, { use } from 'react';
-
 export default function ClientOverviewDashboard({ params }: { params: Promise<{ orgSlug: string }> }) {
-  const { orgSlug: slug } = use(params) || "demo-utility";
+  // NEXT.JS 15 FIX: Unwrap the params promise using React.use()
+  const resolvedParams = use(params);
+  const slug = resolvedParams.orgSlug || 'demo-utility';
 
-  // Dummy data for the frontend mockup before we wire up a real database
   const stats = [
     { label: "TOTAL METERS SCANNED", value: "489,204", icon: Database, color: "text-cyan-400", border: "border-cyan-400/30" },
     { label: "THEFT FLAGS DETECTED", value: "1,240", icon: ShieldAlert, color: "text-purple-400", border: "border-purple-400/30" },
@@ -16,7 +16,6 @@ export default function ClientOverviewDashboard({ params }: { params: Promise<{ 
     { label: "ACTIVE REGIONS", value: "12", icon: Zap, color: "text-blue-400", border: "border-blue-400/30" }
   ];
 
-  // UPDATED: Now matches the new history page schema
   const recentScans = [
     { id: "PRD-0042", name: "Sector 7 Monthly Grid Audit", date: "2024-10-26 14:30:00", type: "BATCH" },
     { id: "PRD-0041", name: "Manual Inspection: MTR-8829", date: "2024-10-25 09:15:22", type: "SINGLE" },
@@ -26,7 +25,6 @@ export default function ClientOverviewDashboard({ params }: { params: Promise<{ 
   return (
     <div className="h-full bg-[#030105] text-white p-8 font-sans selection:bg-cyan-500/30">
       
-      {/* HEADER */}
       <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/10 pb-6">
         <div>
           <div className="text-cyan-400 text-xs font-bold tracking-[0.2em] mb-2 uppercase">
@@ -48,7 +46,6 @@ export default function ClientOverviewDashboard({ params }: { params: Promise<{ 
         </Link>
       </div>
 
-      {/* STATS GRID */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
         {stats.map((stat, i) => {
           const Icon = stat.icon;
@@ -67,10 +64,8 @@ export default function ClientOverviewDashboard({ params }: { params: Promise<{ 
         })}
       </div>
 
-      {/* TWO COLUMN LAYOUT */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         
-        {/* RECENT SCANS TABLE - UPDATED SCHEMA */}
         <div className="lg:col-span-2 bg-white/5 border border-white/10 rounded-lg p-6">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-lg font-bold tracking-wide flex items-center gap-2">
@@ -102,7 +97,7 @@ export default function ClientOverviewDashboard({ params }: { params: Promise<{ 
                     </td>
                     <td className="py-4 text-right">
                       <Link 
-                        href="#" 
+                        href={`/${slug}/logs/${scan.id}`} 
                         className="inline-flex items-center gap-2 text-xs font-sans font-bold tracking-wider text-cyan-400 hover:text-cyan-300 opacity-50 group-hover:opacity-100 transition-all"
                       >
                         VIEW <ExternalLink size={14} />
@@ -115,7 +110,6 @@ export default function ClientOverviewDashboard({ params }: { params: Promise<{ 
           </div>
         </div>
 
-        {/* SYSTEM HEALTH / QUICK ACTIONS */}
         <div className="bg-white/5 border border-white/10 rounded-lg p-6 flex flex-col">
           <h2 className="text-lg font-bold tracking-wide flex items-center gap-2 mb-6">
             <Activity size={18} className="text-cyan-400" />
@@ -144,7 +138,7 @@ export default function ClientOverviewDashboard({ params }: { params: Promise<{ 
             </div>
 
             <div className="pt-6 mt-6 border-t border-white/10">
-              <Link href={`/${slug}/model-metrics`} className="w-full flex items-center justify-between bg-white/5 hover:bg-white/10 border border-white/10 p-4 rounded-md transition-colors group">
+              <Link href={`/${slug}/metrics`} className="w-full flex items-center justify-between bg-white/5 hover:bg-white/10 border border-white/10 p-4 rounded-md transition-colors group">
                 <div>
                   <div className="text-sm font-bold tracking-wide text-white/80 group-hover:text-white">VIEW MODEL METRICS</div>
                   <div className="text-xs text-white/40 mt-1">Confusion matrix & ROC curves</div>
