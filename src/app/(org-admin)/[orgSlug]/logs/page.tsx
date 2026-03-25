@@ -1,30 +1,50 @@
 "use client";
 
-import React, { useState } from 'react';
-import { Database, Search, Filter, ArrowRight, ExternalLink } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Database, Search, Filter, ExternalLink, ShieldAlert, CheckCircle, Loader2, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
 export default function ConsumptionLogs({ params }: { params: { orgSlug: string } }) {
   const slug = params.orgSlug || 'demo-utility';
   const [searchTerm, setSearchTerm] = useState('');
+  const [scanHistory, setScanHistory] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [typeFilter, setTypeFilter] = useState<'ALL' | 'BATCH' | 'SINGLE'>('ALL');
 
-  // Dummy history data - stripped down to your exact requested schema
-  const scanHistory = [
-    { id: "PRD-0042", name: "Sector 7 Monthly Grid Audit", date: "2024-10-26 14:30:00", type: "BATCH" },
-    { id: "PRD-0041", name: "Manual Inspection: MTR-8829", date: "2024-10-25 09:15:22", type: "SINGLE" },
-    { id: "PRD-0040", name: "Industrial Zone Q3 Review", date: "2024-10-24 18:45:10", type: "BATCH" },
-    { id: "PRD-0039", name: "Residential Flag Investigation", date: "2024-10-24 11:20:05", type: "SINGLE" },
-    { id: "PRD-0038", name: "City Center Global Scan", date: "2024-10-23 08:00:00", type: "BATCH" },
-  ];
+  useEffect(() => {
+    fetch(`${API_URL}/logs/${slug}`)
+      .then((r) => r.json())
+      .then((d) => {
+        setScanHistory(d.history || []);
+        setLoading(false);
+      })
+      .catch((e) => {
+        setError('Failed to fetch logs from backend');
+        setLoading(false);
+      });
+  }, [slug]);
+
+  const filtered = scanHistory.filter((s) => {
+    const matchesSearch =
+      s.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      s.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesType = typeFilter === 'ALL' || s.type === typeFilter;
+    return matchesSearch && matchesType;
+  });
 
   return (
     <div className="h-full bg-[#030105] text-white p-8 font-sans selection:bg-cyan-500/30">
-      
+
       {/* HEADER */}
       <div className="mb-8 border-b border-white/10 pb-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
-          <div className="text-cyan-400 text-xs font-bold tracking-[0.2em] mb-2 uppercase">
-            {slug} // Infrastructure // Archive
+          <div className="flex items-center gap-2 text-xs font-bold font-mono mb-6">
+            <Link href={`/${slug}`} className="text-white/60 hover:text-white transition-colors">{slug.toUpperCase()}</Link>
+            <ChevronRight size={12} className="text-white/30" />
+            <span className="text-white/30">ARCHIVE</span>
           </div>
           <h1 className="text-3xl font-black tracking-tight flex items-center gap-3">
             <Database className="text-purple-500" size={32} />
@@ -40,23 +60,33 @@ export default function ConsumptionLogs({ params }: { params: { orgSlug: string 
       <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
         <div className="relative w-full md:w-96">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40" size={16} />
-          <input 
-            type="text" 
-            placeholder="Search by ID or Name..." 
+          <input
+            type="text"
+            placeholder="Search by ID or Name..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full bg-white/5 border border-white/10 rounded-md py-2 pl-10 pr-4 text-sm text-white focus:outline-none focus:border-cyan-500/50 transition-colors"
           />
         </div>
-        <div className="flex items-center gap-2 w-full md:w-auto">
-          <button className="flex items-center justify-center gap-2 bg-white/5 border border-white/10 text-white/70 hover:text-white px-4 py-2 rounded text-xs font-bold tracking-wider w-full md:w-auto transition-colors">
-            <Filter size={14} /> FILTER
-          </button>
+        <div className="flex items-center gap-2">
+          {(['ALL', 'BATCH', 'SINGLE'] as const).map((f) => (
+            <button
+              key={f}
+              onClick={() => setTypeFilter(f)}
+              className={`px-3 py-2 rounded text-[10px] font-bold tracking-wider transition-colors border ${
+                typeFilter === f
+                  ? 'bg-cyan-500/20 border-cyan-500/40 text-cyan-400'
+                  : 'bg-white/5 border-white/10 text-white/40 hover:text-white'
+              }`}
+            >
+              {f}
+            </button>
+          ))}
         </div>
       </div>
 
-      {/* THE LEDGER (TABLE) */}
-      <div className="bg-white/5 border border-white/10 rounded-lg overflow-hidden relative">
+      {/* TABLE */}
+      <div className="bg-white/5 border border-white/10 rounded-lg overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse whitespace-nowrap">
             <thead>
@@ -65,44 +95,84 @@ export default function ConsumptionLogs({ params }: { params: { orgSlug: string 
                 <th className="p-4">Prediction Name</th>
                 <th className="p-4">Date & Time</th>
                 <th className="p-4">Type</th>
+                <th className="p-4">Status</th>
+                <th className="p-4">Records</th>
                 <th className="p-4 text-right">Action</th>
               </tr>
             </thead>
             <tbody className="text-sm font-mono text-white/80">
-              {scanHistory.map((scan, i) => (
-                <tr key={i} className="border-b border-white/5 hover:bg-white/10 transition-colors group">
-                  <td className="p-4 text-cyan-400 font-bold">{scan.id}</td>
-                  <td className="p-4 text-white/90 font-sans tracking-wide">{scan.name}</td>
-                  <td className="p-4 text-white/50">{scan.date}</td>
-                  <td className="p-4">
-                    <span className="bg-white/5 border border-white/10 px-2 py-1 rounded text-[10px] tracking-wider font-sans font-bold text-purple-400">
-                      {scan.type}
-                    </span>
-                  </td>
-                  <td className="p-4 text-right">
-                    <Link 
-                      href="#" 
-                      className="inline-flex items-center gap-2 text-xs font-sans font-bold tracking-wider text-cyan-400 hover:text-cyan-300 bg-cyan-400/10 hover:bg-cyan-400/20 border border-cyan-400/20 px-3 py-1.5 rounded transition-all"
-                    >
-                      VIEW ANALYSIS <ExternalLink size={14} />
-                    </Link>
+              {loading ? (
+                <tr>
+                  <td colSpan={7} className="p-12 text-center">
+                    <div className="flex items-center justify-center gap-3 text-white/40">
+                      <Loader2 size={18} className="animate-spin" />
+                      <span className="text-xs tracking-wider font-bold">LOADING ARCHIVE...</span>
+                    </div>
                   </td>
                 </tr>
-              ))}
+              ) : error ? (
+                <tr>
+                  <td colSpan={7} className="p-12 text-center text-red-400 text-xs font-bold tracking-wider">
+                    {error}
+                  </td>
+                </tr>
+              ) : filtered.length === 0 ? (
+                <tr>
+                  <td colSpan={7} className="p-12 text-center text-white/30 text-xs font-bold tracking-wider">
+                    NO RECORDS FOUND
+                  </td>
+                </tr>
+              ) : (
+                filtered.map((scan, i) => {
+                  const isFlagged = scan.theft_detected > 0;
+                  return (
+                    <tr key={i} className="border-b border-white/5 hover:bg-white/5 transition-colors group">
+                      <td className="p-4 text-cyan-400 font-bold">{scan.id}</td>
+                      <td className="p-4 text-white/90 font-sans tracking-wide">{scan.name}</td>
+                      <td className="p-4 text-white/50">{scan.date}</td>
+                      <td className="p-4">
+                        <span className={`px-2 py-1 rounded text-[10px] tracking-wider font-sans font-bold border ${
+                          scan.type === 'BATCH'
+                            ? 'bg-purple-500/10 border-purple-500/20 text-purple-400'
+                            : 'bg-cyan-500/10 border-cyan-500/20 text-cyan-400'
+                        }`}>
+                          {scan.type}
+                        </span>
+                      </td>
+                      <td className="p-4">
+                        <span className={`flex items-center gap-1.5 text-[10px] font-bold tracking-wider ${
+                          isFlagged ? 'text-red-400' : 'text-emerald-400'
+                        }`}>
+                          {isFlagged
+                            ? <><ShieldAlert size={12} /> FLAGGED</>
+                            : <><CheckCircle size={12} /> CLEAN</>
+                          }
+                        </span>
+                      </td>
+                      <td className="p-4 text-white/50 text-xs">
+                        <span className="text-white/70">{scan.theft_detected}</span>
+                        <span className="text-white/30"> / {scan.records_analyzed}</span>
+                      </td>
+                      <td className="p-4 text-right">
+                        <Link
+                          href={`/${slug}/predict/results/${scan.id}`}
+                          className="inline-flex items-center gap-2 text-xs font-sans font-bold tracking-wider text-cyan-400 hover:text-cyan-300 bg-cyan-400/10 hover:bg-cyan-400/20 border border-cyan-400/20 px-3 py-1.5 rounded transition-all"
+                        >
+                          VIEW ANALYSIS <ExternalLink size={14} />
+                        </Link>
+                      </td>
+                    </tr>
+                  );
+                })
+              )}
             </tbody>
           </table>
         </div>
-        
-        {/* Pagination mock */}
+
         <div className="bg-black/40 border-t border-white/10 p-4 flex items-center justify-between text-xs text-white/40 font-bold tracking-wider">
-          <div>SHOWING 1-5 OF 142 RECORDS</div>
-          <div className="flex gap-2">
-            <button className="px-3 py-1 hover:text-white transition-colors">PREV</button>
-            <button className="px-3 py-1 hover:text-white transition-colors">NEXT</button>
-          </div>
+          <div>SHOWING {filtered.length} OF {scanHistory.length} RECORDS</div>
         </div>
       </div>
-
     </div>
   );
 }

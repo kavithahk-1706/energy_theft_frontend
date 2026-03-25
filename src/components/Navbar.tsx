@@ -54,10 +54,6 @@ export default function SudarshanNavbar() {
         { id: 'dashboard', label: 'OVERVIEW', icon: LayoutDashboard, href: `/${activeSlug}` },
         { 
           id: 'predict', label: 'THEFT_DETECTION', icon: Cpu, href: `/${activeSlug}/predict`,
-          subLinks: [
-            { label: 'Batch Prediction', href: `/${activeSlug}/predict`, icon: Layers },
-            { label: 'Single Prediction', href: `/${activeSlug}/predict`, icon: Zap },
-          ]
         },
         { 
           // FIXED THIS LINK SO IT GOES TO /metrics AND NOT /model-metrics

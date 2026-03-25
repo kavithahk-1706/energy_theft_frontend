@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, use } from 'react';
-import { Activity, Target, Crosshair, BarChart, ShieldAlert, Cpu, FileText, PieChart, X, ZoomIn, TrendingUp, Download } from 'lucide-react';
+import { Activity, Target, Crosshair, BarChart, ShieldAlert, Cpu, FileText, PieChart, X, ZoomIn, TrendingUp, Download, ChevronRight,ChartBar, CpuIcon, Shield } from 'lucide-react';
+import Link from 'next/link';
 
 interface PerformanceStat {
   label: string;
@@ -27,7 +28,9 @@ export default function ModelMetrics({ params }: { params: Promise<{ orgSlug: st
   const [selectedImg, setSelectedImg] = useState<string | null>(null);
 
   const performanceStats: PerformanceStat[] = [
-    { label: "ACCURACY", value: "98.2%", icon: Target, color: "text-cyan-400", border: "border-cyan-500/20" },
+    { label: "MODEL", value: "Random Forest", icon: CpuIcon, color: "text-amber-400", border: "border-cyan-500/20" },
+    { label: "ACCURACY", value: "98.2%", icon: Target, color: "text-emerald-400", border: "border-cyan-500/20" },
+    { label: "F1 SCORE", value: "99.5%", icon: ChartBar, color: "text-cyan-400", border: "border-cyan-500/20" },
     { label: "LATENCY", value: "24ms", icon: Activity, color: "text-purple-400", border: "border-purple-500/20" },
     { label: "PRECISION", value: "0.94", icon: Crosshair, color: "text-emerald-400", border: "border-emerald-500/20" },
     { label: "UPTIME", value: "99.9%", icon: ShieldAlert, color: "text-amber-400", border: "border-amber-500/20" },
@@ -93,11 +96,13 @@ export default function ModelMetrics({ params }: { params: Promise<{ orgSlug: st
       {/* HEADER */}
       <div className="mb-10 border-b border-white/10 pb-6 flex items-end justify-between">
         <div>
-          <div className="text-cyan-400 text-xs font-bold tracking-[0.2em] mb-2 uppercase">
-            {slug} // Infrastructure // Intelligence
+          <div className="flex items-center gap-2 text-xs font-bold font-mono mb-6">
+            <Link href={`/${slug}`} className="text-white/60 hover:text-white transition-colors">{slug.toUpperCase()}</Link>
+            <ChevronRight size={12} className="text-white/30" />
+            <span className="text-white/30">MODEL METRICS</span>
           </div>
           <h1 className="text-3xl font-black tracking-tight flex items-center gap-3">
-            <Cpu className="text-purple-500" size={32} />
+            <Shield className="text-purple-500" size={32} />
             SUDARSHAN <span className="text-white/40">ENGINE METRICS</span>
           </h1>
         </div>
@@ -112,7 +117,7 @@ export default function ModelMetrics({ params }: { params: Promise<{ orgSlug: st
       </div>
 
       {/* STATS ROW */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 mb-10">
         {performanceStats.map((stat, i) => (
           <div key={i} className={`bg-white/5 border ${stat.border} p-6 rounded-lg relative overflow-hidden group hover:bg-white/10 transition-colors`}>
             <div className="flex items-center gap-3 mb-2">
