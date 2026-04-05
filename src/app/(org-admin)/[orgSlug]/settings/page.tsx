@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useState, useEffect, useRef, use } from 'react';
-import { useUser, SignOutButton, UserProfile } from "@clerk/nextjs";
+import { useUser, SignOutButton, UserProfile, } from "@clerk/nextjs";
 import { usePathname } from 'next/navigation';
 import { 
   Settings, Key, Users, CreditCard, Shield, Activity, 
-  Fingerprint, Globe, Power, Server, Wifi, ShieldAlert
+  Fingerprint, Globe, Power, Server, Wifi, ShieldAlert, ChevronRight
 } from 'lucide-react';
 import Link from 'next/link';
 

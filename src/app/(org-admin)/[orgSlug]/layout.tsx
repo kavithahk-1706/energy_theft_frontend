@@ -43,7 +43,7 @@ export default async function OrgAdminLayout({
           <div className="flex items-center gap-3">
             <ShieldAlert className="text-purple-400 animate-pulse" size={18} />
             <span className="font-mono text-[10px] md:text-xs font-bold tracking-[0.2em] text-purple-300">
-              ADMIN OVERRIDE ACTIVE // VIEWING TENANT: <span className="text-white">{slug.toUpperCase()}</span>
+              ADMIN OVERRIDE ACTIVE // VIEWING TENANT: <span className="text-white font-bold">{slug.toUpperCase()}</span>
             </span>
           </div>
           <Link 

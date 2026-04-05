@@ -6,14 +6,14 @@ import Link from 'next/link';
 import {
   ShieldAlert, CheckCircle, ArrowLeft, AlertTriangle,
   Info, ChevronRight, Activity, Cpu, MapPin, Trees,
-  Zap, Flame, Wind, Thermometer, Lightbulb, Droplets,
+  Zap, Flame, Wind, Thermometer, Lightbulb, Droplets, Download, FileText, Table2, Loader2
 } from 'lucide-react';
 import {
   RadarChart, PolarGrid, PolarAngleAxis, Radar,
   ResponsiveContainer, BarChart, Bar, XAxis, YAxis,
   Tooltip, Cell, Legend
 } from 'recharts';
-
+import { exportToPDF, exportSingleRecordToCSV } from '@/lib/exportUtils';
 import { ConsumptionRadar, FlaggedFeaturesChart, FIELD_LABELS, AREA_MAP } from '@/components/PredictionCharts';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
@@ -114,11 +114,10 @@ function FeatureBaselineChart({ features, anomalyFlags }: { features: Record<str
                   {meta?.label || key}
                 </span>
                 {isFlagged && (
-                  <span className={`text-[9px] font-mono px-1.5 py-0.5 rounded ${
-                    Math.abs(flag.z_score) > 5
-                      ? 'bg-red-500/20 text-red-400'
-                      : 'bg-amber-500/20 text-amber-400'
-                  }`}>
+                  <span className={`text-[9px] font-mono px-1.5 py-0.5 rounded ${Math.abs(flag.z_score) > 5
+                    ? 'bg-red-500/20 text-red-400'
+                    : 'bg-amber-500/20 text-amber-400'
+                    }`}>
                     z={flag.z_score > 0 ? '+' : ''}{flag.z_score}
                   </span>
                 )}
@@ -185,27 +184,26 @@ function AnomalyFlagsSummary({ flags, isTheft }: { flags: any[]; isTheft: boolea
   return (
     <div className="space-y-2">
 
-        {!isTheft && flags.length > 0 && (
+      {!isTheft && flags.length > 0 && (
         <div className="p-3 border border-white/10 bg-white/5 rounded-lg flex items-start gap-2 mb-3">
-            <Info size={13} className="text-white/50 mt-0.5 shrink-0" />
-            <p className="text-[10px] text-white/50 leading-relaxed">
-            These features deviate statistically from the class baseline, but the random forest 
-            classified this record as <span className="text-emerald-400 font-bold">Normal</span> based 
+          <Info size={13} className="text-white/50 mt-0.5 shrink-0" />
+          <p className="text-[10px] text-white/50 leading-relaxed">
+            These features deviate statistically from the class baseline, but the random forest
+            classified this record as <span className="text-emerald-400 font-bold">Normal</span> based
             on the overall consumption pattern. Individual deviations do not necessarily indicate theft.
-            </p>
+          </p>
         </div>
-        )}
-        {flags.map((flag: any, i: number) => {
+      )}
+      {flags.map((flag: any, i: number) => {
         const severity = Math.abs(flag.z_score) > 5 ? 'high' : 'medium';
         const meta = FIELD_LABELS[flag.feature];
         return (
           <div
             key={i}
-            className={`p-4 rounded-lg border flex items-start gap-3 ${
-              severity === 'high'
-                ? 'border-red-500/30 bg-red-500/5'
-                : 'border-amber-500/30 bg-amber-500/5'
-            }`}
+            className={`p-4 rounded-lg border flex items-start gap-3 ${severity === 'high'
+              ? 'border-red-500/30 bg-red-500/5'
+              : 'border-amber-500/30 bg-amber-500/5'
+              }`}
           >
             <AlertTriangle
               size={14}
@@ -235,6 +233,58 @@ function AnomalyFlagsSummary({ flags, isTheft }: { flags: any[]; isTheft: boolea
   );
 }
 
+function RecordExportDropdown({ record, scanId }: { record: any; scanId: string }) {
+  const [open, setOpen] = useState(false);
+  const [pdfLoading, setPdfLoading] = useState(false);
+
+  const handlePDF = async () => {
+    setOpen(false);
+    setPdfLoading(true);
+    try {
+      await exportToPDF('record-export-root', `${scanId}_record_${record.record_index}`);
+    } finally {
+      setPdfLoading(false);
+    }
+  };
+
+  return (
+    <div className="relative">
+      <button
+        onClick={() => setOpen((p) => !p)}
+        disabled={pdfLoading}
+        className="flex items-center gap-2 text-xs font-bold tracking-wider text-white/70
+                   bg-white/5 hover:bg-white/10 border border-white/10
+                   px-3 py-2 rounded transition-colors disabled:opacity-50"
+      >
+        {pdfLoading ? <Loader2 size={13} className="animate-spin" /> : <Download size={13} />}
+        {pdfLoading ? 'GENERATING...' : 'EXPORT ▾'}
+      </button>
+
+      {open && (
+        <>
+          <div className="fixed inset-0 z-10" onClick={() => setOpen(false)} />
+          <div className="absolute top-full right-0 mt-1 z-20 bg-[#0a0a0f] border border-white/10
+                          rounded-lg overflow-hidden min-w-[160px] shadow-xl">
+            <button
+              onClick={handlePDF}
+              className="w-full flex items-center gap-2 px-4 py-2.5 text-xs text-white/70
+                         hover:bg-white/5 hover:text-white transition-colors text-left"
+            >
+              <FileText size={12} /> Export PDF
+            </button>
+            <button
+              onClick={() => { exportSingleRecordToCSV(record, scanId); setOpen(false); }}
+              className="w-full flex items-center gap-2 px-4 py-2.5 text-xs text-cyan-400/70
+                         hover:bg-cyan-500/5 hover:text-cyan-400 transition-colors text-left border-t border-white/5"
+            >
+              <Table2 size={12} /> Export CSV
+            </button>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
 
 // ─── MAIN PAGE ────────────────────────────────────────────────────────────────
 export default function RecordDrilldownPage({
@@ -309,196 +359,201 @@ export default function RecordDrilldownPage({
     <div className="min-h-screen bg-[#030105] text-white p-8 font-sans selection:bg-cyan-500/30">
 
       {/* BREADCRUMB */}
-      <div className="mb-8">
-      <div className="flex items-center gap-2 text-[10px] text-white/50 font-mono mb-4">
-        <Link href={`/${slug}/logs`} className="hover:text-white transition-colors">ARCHIVE</Link>
-        <ChevronRight size={10} />
-        <Link href={`/${slug}/predict/results/${scanId}`} className="hover:text-white transition-colors">{scanId}</Link>
-        <ChevronRight size={10} />
-        <span className="text-white/60">RECORD #{recordIndex}</span>
+      <div className="mb-8 flex items-center justify-between flex-wrap gap-4">
+        <div>
+          <div className="flex items-center gap-2 text-[10px] text-white/50 font-mono mb-4">
+            <Link href={`/${slug}/logs`} className="hover:text-white transition-colors">ARCHIVE</Link>
+            <ChevronRight size={10} />
+            <Link href={`/${slug}/predict/results/${scanId}`} className="hover:text-white transition-colors">{scanId}</Link>
+            <ChevronRight size={10} />
+            <span className="text-white/60">RECORD #{recordIndex}</span>
+          </div>
+          <Link
+            href={`/${slug}/predict/results/${scanId}`}
+            className="flex items-center gap-2 text-xs text-white/40 hover:text-white mb-6 transition-colors w-fit"
+          >
+            <ArrowLeft size={14} /> BACK TO SCAN RESULTS
+          </Link>
+        </div>
+        <RecordExportDropdown record={record} scanId={scanId} />
       </div>
 
-      <Link
-        href={`/${slug}/predict/results/${scanId}`}
-        className="flex items-center gap-2 text-xs text-white/40 hover:text-white mb-6 transition-colors w-fit"
-      >
-        <ArrowLeft size={14} /> BACK TO SCAN RESULTS
-      </Link>
-
-      <div className={`p-6 rounded-xl border ${
-        isTheft
+      {/*record export root*/}
+      <div id="record-export-root">
+        <div className={`p-6 rounded-xl border ${isTheft
           ? 'border-red-500/40 bg-gradient-to-br from-red-500/10 to-transparent'
           : 'border-emerald-500/40 bg-gradient-to-br from-emerald-500/10 to-transparent'
-      }`}>
-        <div className="flex items-start justify-between gap-4 flex-wrap">
-          <div className="flex items-center gap-4">
-            {isTheft
-              ? <ShieldAlert size={40} className="text-red-400 shrink-0" />
-              : <CheckCircle size={40} className="text-emerald-400 shrink-0" />}
-            <div>
-              <h1 className={`text-3xl font-black tracking-tight ${isTheft ? 'text-red-400' : 'text-emerald-400'}`}>
-                {isTheft ? 'ENERGY THEFT DETECTED' : 'CONSUMPTION NORMAL'}
-              </h1>
-              <p className="text-xs text-white/40 font-mono mt-1">
-                Scan {scanId} · Record #{recordIndex} · {buildingClass}
-              </p>
+          }`}>
+          <div className="flex items-start justify-between gap-4 flex-wrap">
+            <div className="flex items-center gap-4">
+              {isTheft
+                ? <ShieldAlert size={40} className="text-red-400 shrink-0" />
+                : <CheckCircle size={40} className="text-emerald-400 shrink-0" />}
+              <div>
+                <h1 className={`text-3xl font-black tracking-tight ${isTheft ? 'text-red-400' : 'text-emerald-400'}`}>
+                  {isTheft ? 'ENERGY THEFT DETECTED' : 'CONSUMPTION NORMAL'}
+                </h1>
+                <p className="text-xs text-white/40 font-mono mt-1">
+                  Scan {scanId} · Record #{recordIndex} · {buildingClass}
+                </p>
+              </div>
+            </div>
+            <div className="flex gap-2 flex-wrap">
+              {[
+                { label: 'CONFIDENCE', val: `${((record.confidence || 0) * 100).toFixed(1)}%`, color: isTheft ? 'text-red-400' : 'text-emerald-400' },
+                { label: 'AREA', val: area?.name || (record.area_id ? `Area ${record.area_id}` : '—'), color: 'text-purple-400' },
+                { label: 'BUILDING CLASS', val: buildingClass, color: 'text-purple-400' },
+                { label: 'FLAGS', val: anomalyFlags.length > 0 ? `${anomalyFlags.length} feature${anomalyFlags.length > 1 ? 's' : ''}` : 'None', color: anomalyFlags.length > 0 ? 'text-amber-400' : 'text-white/40' },
+                { label: 'RECORD', val: `#${record.record_index}`, color: 'text-white/60' },
+              ].map((s) => (
+                <div key={s.label} className="bg-black/50 border border-white/10 px-4 py-2 rounded text-center min-w-[80px]">
+                  <div className="text-[8px] text-white/30 font-bold tracking-widest mb-1">{s.label}</div>
+                  <div className={`text-sm font-black ${s.color}`}>{s.val}</div>
+                </div>
+              ))}
             </div>
           </div>
-          <div className="flex gap-2 flex-wrap">
-            {[
-              { label: 'CONFIDENCE', val: `${((record.confidence || 0) * 100).toFixed(1)}%`, color: isTheft ? 'text-red-400' : 'text-emerald-400' },
-              { label: 'AREA', val: area?.name || (record.area_id ? `Area ${record.area_id}` : '—'), color: 'text-purple-400' },
-              { label: 'BUILDING CLASS', val: buildingClass, color: 'text-purple-400' },
-              { label: 'FLAGS', val: anomalyFlags.length > 0 ? `${anomalyFlags.length} feature${anomalyFlags.length > 1 ? 's' : ''}` : 'None', color: anomalyFlags.length > 0 ? 'text-amber-400' : 'text-white/40' },
-              { label: 'RECORD', val: `#${record.record_index}`, color: 'text-white/60' },
-            ].map((s) => (
-              <div key={s.label} className="bg-black/50 border border-white/10 px-4 py-2 rounded text-center min-w-[80px]">
-                <div className="text-[8px] text-white/30 font-bold tracking-widest mb-1">{s.label}</div>
-                <div className={`text-sm font-black ${s.color}`}>{s.val}</div>
-              </div>
-            ))}
+        </div>
+
+
+        {/* MAIN GRID */}
+        {/* ROW 1: tree votes | probabilities | metadata */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
+
+          {/* tree votes */}
+          <div className="bg-white/5 border border-white/10 rounded-xl p-5">
+            <div className="flex items-center gap-2 mb-4">
+              <Trees size={14} className="text-white/50" />
+              <h2 className="text-[10px] font-bold text-white/40 tracking-widest">DECISION FOREST</h2>
+            </div>
+            {treeVotes
+              ? <TreeVotesBar votes={treeVotes} />
+              : <p className="text-xs text-white/30">No vote data</p>}
           </div>
-        </div>
-      </div>
-    </div>
 
-      {/* MAIN GRID */}
-      {/* ROW 1: tree votes | probabilities | metadata */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
+          {/* probabilities */}
+          <div className="bg-white/5 border border-white/10 rounded-xl p-5">
+            <h2 className="text-[10px] font-bold text-white/40 tracking-widest mb-4">CLASS PROBABILITIES</h2>
+            {probabilities ? (
+              <div className="space-y-4">
+                {[
+                  { label: 'Theft', val: probabilities.theft, bar: 'bg-red-400', text: 'text-red-400' },
+                  { label: 'Normal', val: probabilities.normal, bar: 'bg-emerald-400', text: 'text-emerald-400' },
+                ].map((p) => (
+                  <div key={p.label}>
+                    <div className="flex justify-between items-center mb-2">
+                      <span className={`text-sm font-bold ${p.text}`}>{p.label}</span>
+                      <span className="font-mono text-lg font-black text-white/80">
+                        {(p.val * 100).toFixed(2)}%
+                      </span>
+                    </div>
+                    <div className="h-3 w-full bg-white/10 rounded-full overflow-hidden">
+                      <div className={`h-full ${p.bar} rounded-full transition-all duration-700`}
+                        style={{ width: `${p.val * 100}%` }} />
+                    </div>
+                  </div>
+                ))}
+                <p className="text-[9px] text-white/40 leading-relaxed">
+                  Fraction of trees that voted for each class via <span className="font-mono">predict_proba()</span>
+                </p>
+              </div>
+            ) : <p className="text-xs text-white/30">No probability data</p>}
+          </div>
 
-      {/* tree votes */}
-      <div className="bg-white/5 border border-white/10 rounded-xl p-5">
-        <div className="flex items-center gap-2 mb-4">
-          <Trees size={14} className="text-white/50" />
-          <h2 className="text-[10px] font-bold text-white/40 tracking-widest">DECISION FOREST</h2>
-        </div>
-        {treeVotes
-          ? <TreeVotesBar votes={treeVotes} />
-          : <p className="text-xs text-white/30">No vote data</p>}
-      </div>
-
-      {/* probabilities */}
-      <div className="bg-white/5 border border-white/10 rounded-xl p-5">
-        <h2 className="text-[10px] font-bold text-white/40 tracking-widest mb-4">CLASS PROBABILITIES</h2>
-        {probabilities ? (
-          <div className="space-y-4">
-            {[
-              { label: 'Theft', val: probabilities.theft, bar: 'bg-red-400', text: 'text-red-400' },
-              { label: 'Normal', val: probabilities.normal, bar: 'bg-emerald-400', text: 'text-emerald-400' },
-            ].map((p) => (
-              <div key={p.label}>
-                <div className="flex justify-between items-center mb-2">
-                  <span className={`text-sm font-bold ${p.text}`}>{p.label}</span>
-                  <span className="font-mono text-lg font-black text-white/80">
-                    {(p.val * 100).toFixed(2)}%
+          {/* metadata */}
+          <div className="bg-white/5 border border-white/10 rounded-xl p-5">
+            <h2 className="text-[10px] font-bold text-white/40 tracking-widest mb-4">RECORD METADATA</h2>
+            <div className="space-y-3">
+              {[
+                { label: 'Building Class', val: buildingClass, color: 'text-purple-400', icon: <Cpu size={12} /> },
+                { label: 'Area', val: area ? `${area.name} (Area ${record.area_id})` : record.area_id ? `Area ${record.area_id}` : '—', color: 'text-purple-400', icon: <MapPin size={12} /> },
+                { label: 'Record Index', val: `#${record.record_index}`, color: 'text-white/60', icon: null },
+                { label: 'Statistical Flags', val: anomalyFlags.length > 0 ? `${anomalyFlags.length} deviate` : 'None', color: anomalyFlags.length > 0 ? 'text-amber-400' : 'text-white/30', icon: null },
+              ].map((m) => (
+                <div key={m.label} className="flex justify-between items-center py-2 border-b border-white/5">
+                  <span className="text-xs text-white/40 flex items-center gap-1.5">
+                    {m.icon} {m.label}
                   </span>
+                  <span className={`text-xs font-bold ${m.color}`}>{m.val}</span>
                 </div>
-                <div className="h-3 w-full bg-white/10 rounded-full overflow-hidden">
-                  <div className={`h-full ${p.bar} rounded-full transition-all duration-700`}
-                    style={{ width: `${p.val * 100}%` }} />
-                </div>
-              </div>
-            ))}
-            <p className="text-[9px] text-white/40 leading-relaxed">
-              Fraction of trees that voted for each class via <span className="font-mono">predict_proba()</span>
-            </p>
-          </div>
-        ) : <p className="text-xs text-white/30">No probability data</p>}
-      </div>
-
-      {/* metadata */}
-      <div className="bg-white/5 border border-white/10 rounded-xl p-5">
-        <h2 className="text-[10px] font-bold text-white/40 tracking-widest mb-4">RECORD METADATA</h2>
-        <div className="space-y-3">
-          {[
-            { label: 'Building Class', val: buildingClass, color: 'text-purple-400', icon: <Cpu size={12} /> },
-            { label: 'Area', val: area ? `${area.name} (Area ${record.area_id})` : record.area_id ? `Area ${record.area_id}` : '—', color: 'text-purple-400', icon: <MapPin size={12} /> },
-            { label: 'Record Index', val: `#${record.record_index}`, color: 'text-white/60', icon: null },
-            { label: 'Statistical Flags', val: anomalyFlags.length > 0 ? `${anomalyFlags.length} deviate` : 'None', color: anomalyFlags.length > 0 ? 'text-amber-400' : 'text-white/30', icon: null },
-          ].map((m) => (
-            <div key={m.label} className="flex justify-between items-center py-2 border-b border-white/5">
-              <span className="text-xs text-white/40 flex items-center gap-1.5">
-                {m.icon} {m.label}
-              </span>
-              <span className={`text-xs font-bold ${m.color}`}>{m.val}</span>
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
-    </div>
-
-    {/* ROW 2: radar | flagged features + anomaly flags */}
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
-
-      {/* radar */}
-      {record.features && (
-        <div className="bg-white/5 border border-white/10 rounded-xl p-5">
-          <h2 className="text-[10px] font-bold text-white/40 tracking-widest mb-2">CONSUMPTION FINGERPRINT</h2>
-          <p className="text-[9px] text-white/50 mb-4 leading-relaxed">
-            Cyan = this record · Purple dashed = <span className="text-purple-400">{buildingClass}</span> baseline
-          </p>
-          <ConsumptionRadar
-            features={record.features}
-            anomalyFlags={anomalyFlags}
-            buildingClass={buildingClass}
-          />
-        </div>
-      )}
-
-      {/* flagged features bar + anomaly flags stacked */}
-      <div className="bg-white/5 border border-white/10 rounded-xl p-5 flex flex-col gap-5">
-
-        {/* top: flagged features bar */}
-        <div>
-          <h2 className="text-[10px] font-bold text-white/40 tracking-widest mb-3">
-            FLAGGED FEATURES VS BASELINE
-          </h2>
-          {anomalyFlags.length > 0
-            ? <FlaggedFeaturesChart anomalyFlags={anomalyFlags} />
-            : <p className="text-xs text-white/30 italic">No flagged features</p>}
-        </div>
-
-        <div className="border-t border-white/10" />
-
-        {/* bottom: anomaly flags list */}
-        <div>
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-[10px] font-bold text-white/40 tracking-widest">
-              {isTheft ? 'ANOMALY FLAGS' : 'STATISTICAL DEVIATIONS'}
-            </h2>
-            {anomalyFlags.length > 0 && (
-              <span className="text-[9px] font-bold text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2 py-1 rounded">
-                {anomalyFlags.length} detected
-              </span>
-            )}
           </div>
-          <AnomalyFlagsSummary flags={anomalyFlags} isTheft={isTheft} />
+        </div>
+
+        {/* ROW 2: radar | flagged features + anomaly flags */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+
+          {/* radar */}
+          {record.features && (
+            <div className="bg-white/5 border border-white/10 rounded-xl p-5">
+              <h2 className="text-[10px] font-bold text-white/40 tracking-widest mb-2">CONSUMPTION FINGERPRINT</h2>
+              <p className="text-[9px] text-white/50 mb-4 leading-relaxed">
+                Cyan = this record · Purple dashed = <span className="text-purple-400">{buildingClass}</span> baseline
+              </p>
+              <ConsumptionRadar
+                features={record.features}
+                anomalyFlags={anomalyFlags}
+                buildingClass={buildingClass}
+              />
+            </div>
+          )}
+
+          {/* flagged features bar + anomaly flags stacked */}
+          <div className="bg-white/5 border border-white/10 rounded-xl p-5 flex flex-col gap-5">
+
+            {/* top: flagged features bar */}
+            <div>
+              <h2 className="text-[10px] font-bold text-white/40 tracking-widest mb-3">
+                FLAGGED FEATURES VS BASELINE
+              </h2>
+              {anomalyFlags.length > 0
+                ? <FlaggedFeaturesChart anomalyFlags={anomalyFlags} />
+                : <p className="text-xs text-white/30 italic">No flagged features</p>}
+            </div>
+
+            <div className="border-t border-white/10" />
+
+            {/* bottom: anomaly flags list */}
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-[10px] font-bold text-white/40 tracking-widest">
+                  {isTheft ? 'ANOMALY FLAGS' : 'STATISTICAL DEVIATIONS'}
+                </h2>
+                {anomalyFlags.length > 0 && (
+                  <span className="text-[9px] font-bold text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2 py-1 rounded">
+                    {anomalyFlags.length} detected
+                  </span>
+                )}
+              </div>
+              <AnomalyFlagsSummary flags={anomalyFlags} isTheft={isTheft} />
+            </div>
+          </div>
+        </div>
+
+        {/* ROW 3: feature vs baseline full width */}
+        {record.features && (
+          <div className="bg-white/5 border border-white/10 rounded-xl p-5 mb-5">
+            <h2 className="text-[10px] font-bold text-white/40 tracking-widest mb-2">
+              FEATURE VALUES VS CLASS BASELINE
+            </h2>
+            <p className="text-[9px] text-white/50 mb-5 leading-relaxed">
+              Flagged features show this record's value alongside the statistical mean for{' '}
+              <span className="text-purple-400">{buildingClass}</span> buildings.
+            </p>
+            <FeatureBaselineChart features={record.features} anomalyFlags={anomalyFlags} />
+          </div>
+        )}
+
+        {/* FOOTER NOTE */}
+        <div className="pt-6 border-t border-white/5">
+          <p className="text-[9px] text-white/40 leading-relaxed max-w-2xl">
+            Classification performed by a Random Forest model trained on 560,000+ records.
+            Tree vote counts are derived directly from <span className="font-mono">model.estimators_</span> in scikit-learn.
+            Statistical deviations are computed against per-class baselines (mean ± std) derived from the training distribution.
+          </p>
         </div>
       </div>
-    </div>
-
-    {/* ROW 3: feature vs baseline full width */}
-    {record.features && (
-      <div className="bg-white/5 border border-white/10 rounded-xl p-5 mb-5">
-        <h2 className="text-[10px] font-bold text-white/40 tracking-widest mb-2">
-          FEATURE VALUES VS CLASS BASELINE
-        </h2>
-        <p className="text-[9px] text-white/50 mb-5 leading-relaxed">
-          Flagged features show this record's value alongside the statistical mean for{' '}
-          <span className="text-purple-400">{buildingClass}</span> buildings.
-        </p>
-        <FeatureBaselineChart features={record.features} anomalyFlags={anomalyFlags} />
-      </div>
-    )}
-
-    {/* FOOTER NOTE */}
-    <div className="pt-6 border-t border-white/5">
-      <p className="text-[9px] text-white/40 leading-relaxed max-w-2xl">
-        Classification performed by a Random Forest model trained on 560,000+ records.
-        Tree vote counts are derived directly from <span className="font-mono">model.estimators_</span> in scikit-learn.
-        Statistical deviations are computed against per-class baselines (mean ± std) derived from the training distribution.
-      </p>
-    </div>
     </div>
   );
 }

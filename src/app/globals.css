@@ -3,6 +3,9 @@
 /* Link to your config to support the @/* alias and content paths */
 @config "../../tailwind.config.js";
 
+
+
+
 @theme {
   /* Brand Colors */
   --color-volt-lime: #ADFF2F;
@@ -103,3 +106,14 @@
    0% { top: 0%; }
    100% { top: 100%; }
  }
+
+ @media print {
+
+  /* hide stuff that shouldn't be in the PDF */
+  .no-print {
+    display: none !important;
+  }
+
+ }
+
+

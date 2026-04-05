@@ -1,10 +1,27 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Database, Search, Filter, ExternalLink, ShieldAlert, CheckCircle, Loader2, ChevronRight } from 'lucide-react';
+import { Database, Search, Filter, ExternalLink, ShieldAlert, CheckCircle, Loader2, ChevronRight, Download } from 'lucide-react';
 import Link from 'next/link';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+
+function exportLogsToCsv(logs: any[], filename: string) {
+  const headers = ['ID', 'Name', 'Date', 'Type', 'Status', 'Theft Detected', 'Records Analyzed'];
+  const escape = (v: any) => `"${String(v ?? '').replace(/"/g, '""')}"`;
+  const rows = logs.map(s => [
+    s.id, s.name, s.date, s.type,
+    s.theft_detected > 0 ? 'FLAGGED' : 'CLEAN',
+    s.theft_detected, s.records_analyzed
+  ].map(escape).join(','));
+  const csv = [headers.map(escape).join(','), ...rows].join('\n');
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `${filename}.csv`; a.click();
+  URL.revokeObjectURL(url);
+}
+
 
 export default function ConsumptionLogs({ params }: { params: { orgSlug: string } }) {
   const slug = params.orgSlug || 'demo-utility';
@@ -54,6 +71,18 @@ export default function ConsumptionLogs({ params }: { params: { orgSlug: string 
             Historical registry of all Random Forest classification runs. Access past prediction snapshots and audit reports.
           </p>
         </div>
+        <button
+          onClick={() => exportLogsToCsv(filtered, `${slug}-prediction-archive`)}
+          disabled={filtered.length === 0}
+          className="flex items-center gap-2 text-xs font-bold tracking-wider text-white/70
+             bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20
+             px-3 py-2 rounded transition-colors disabled:opacity-30"
+        >
+          <Download size={13} /> EXPORT CSV
+          {filtered.length > 0 && (
+            <span className="text-white/40 font-mono">({filtered.length})</span>
+          )}
+        </button>
       </div>
 
       {/* TABLE CONTROLS */}
@@ -73,11 +102,10 @@ export default function ConsumptionLogs({ params }: { params: { orgSlug: string 
             <button
               key={f}
               onClick={() => setTypeFilter(f)}
-              className={`px-3 py-2 rounded text-[10px] font-bold tracking-wider transition-colors border ${
-                typeFilter === f
+              className={`px-3 py-2 rounded text-[10px] font-bold tracking-wider transition-colors border ${typeFilter === f
                   ? 'bg-cyan-500/20 border-cyan-500/40 text-cyan-400'
                   : 'bg-white/5 border-white/10 text-white/40 hover:text-white'
-              }`}
+                }`}
             >
               {f}
             </button>
@@ -131,18 +159,16 @@ export default function ConsumptionLogs({ params }: { params: { orgSlug: string 
                       <td className="p-4 text-white/90 font-sans tracking-wide">{scan.name}</td>
                       <td className="p-4 text-white/50">{scan.date}</td>
                       <td className="p-4">
-                        <span className={`px-2 py-1 rounded text-[10px] tracking-wider font-sans font-bold border ${
-                          scan.type === 'BATCH'
+                        <span className={`px-2 py-1 rounded text-[10px] tracking-wider font-sans font-bold border ${scan.type === 'BATCH'
                             ? 'bg-purple-500/10 border-purple-500/20 text-purple-400'
                             : 'bg-cyan-500/10 border-cyan-500/20 text-cyan-400'
-                        }`}>
+                          }`}>
                           {scan.type}
                         </span>
                       </td>
                       <td className="p-4">
-                        <span className={`flex items-center gap-1.5 text-[10px] font-bold tracking-wider ${
-                          isFlagged ? 'text-red-400' : 'text-emerald-400'
-                        }`}>
+                        <span className={`flex items-center gap-1.5 text-[10px] font-bold tracking-wider ${isFlagged ? 'text-red-400' : 'text-emerald-400'
+                          }`}>
                           {isFlagged
                             ? <><ShieldAlert size={12} /> FLAGGED</>
                             : <><CheckCircle size={12} /> CLEAN</>
