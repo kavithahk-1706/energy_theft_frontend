@@ -19,7 +19,49 @@ import { exportPredictionsToCSV, exportToPDF } from '@/lib/exportUtils';
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
 
+function DomainContextNote({ result, isTheft }: { result: any; isTheft: boolean }) {
+  const hasDomain = !!result?.domain_flag;
+  const hasFlags = result?.anomaly_flags?.length > 0;
+  const tier = result?.domain_tier;
 
+  const borderColor = hasDomain
+    ? tier === 'impossible' ? 'border-red-500/20 bg-red-500/5'
+      : tier === 'suspicious' ? 'border-amber-500/20 bg-amber-500/5'
+        : 'border-cyan-500/20 bg-cyan-500/5'
+    : isTheft && !hasFlags
+      ? 'border-white/10 bg-white/5'
+      : 'border-white/10 bg-white/5';
+
+  const iconColor = hasDomain
+    ? tier === 'impossible' ? 'text-red-400'
+      : tier === 'suspicious' ? 'text-amber-400'
+        : 'text-cyan-400'
+    : 'text-white/40';
+
+  const message = hasDomain
+    ? result.domain_note
+    : isTheft && !hasFlags
+      ? "No individual feature anomalies were detected — the random forest classified this record as theft based on the combined consumption signature across all 9 features simultaneously. The overall pattern deviates from what is statistically normal for this building class."
+      : isTheft && hasFlags
+        ? `${result.anomaly_flags.length} feature${result.anomaly_flags.length > 1 ? 's' : ''} deviate significantly from the class baseline and likely contributed to the theft classification. See anomaly flags below for details.`
+        : !isTheft && hasFlags
+          ? "Statistical deviations were detected in some features, but the random forest classified this record as normal based on the overall consumption pattern. Individual deviations do not necessarily indicate theft."
+          : "All features are within normal statistical range for this building class. The random forest found no theft signature in the overall consumption pattern.";
+
+  return (
+    <div className={`flex items-start gap-3 p-4 rounded-lg border mb-5 ${borderColor}`}>
+      <Info size={13} className={`mt-0.5 shrink-0 ${iconColor}`} />
+      <div className="flex-1">
+        {hasDomain && (
+          <span className={`text-[9px] font-bold tracking-widest mr-2 ${iconColor}`}>
+            {result.domain_flag} ·{' '}
+          </span>
+        )}
+        <span className="text-[10px] text-white/50 leading-relaxed">{message}</span>
+      </div>
+    </div>
+  );
+}
 
 // ─── Donut Chart ─────────────────────────────────────────────────────────────
 function TheftDonut({ theft, normal }: { theft: number; normal: number }) {
@@ -327,15 +369,38 @@ function FeatureComparison({ features }: { features: Record<string, any> }) {
 // ─── SINGLE result layout ────────────────────────────────────────────────────
 function SingleLayout({ snapshot, slug }: { snapshot: any; slug: string }) {
   const rec = snapshot.all_predictions?.[0] || snapshot.theft_predictions?.[0];
+  console.log('rec:', rec);
+  console.log('domain_flag:', rec?.domain_flag);
   const isTheft = snapshot.theft_detected > 0;
   const buildingClass = rec?.features?.class || '—';
   const anomalyFlags = rec?.anomaly_flags || [];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div id="record-export-root">
+
+         {/* DOMAIN CONTEXT STRIP */}
+        {rec?.domain_flag && (
+          <div className={`flex items-start gap-3 p-4 rounded-lg border mb-5 ${rec.domain_tier === 'impossible' ? 'border-red-500/20 bg-red-500/5'
+            : rec.domain_tier === 'suspicious' ? 'border-amber-500/20 bg-amber-500/5'
+              : 'border-cyan-500/20 bg-cyan-500/5'
+            }`}>
+            <Info size={13} className={`mt-0.5 shrink-0 ${rec.domain_tier === 'impossible' ? 'text-red-400'
+              : rec.domain_tier === 'suspicious' ? 'text-amber-400'
+                : 'text-cyan-400'
+              }`} />
+            <div>
+              <span className={`text-[9px] font-bold tracking-widest ${rec.domain_tier === 'impossible' ? 'text-red-400'
+                : rec.domain_tier === 'suspicious' ? 'text-amber-400'
+                  : 'text-cyan-400'
+                }`}>{rec.domain_flag}</span>
+              <p className="text-[10px] text-white/50 leading-relaxed mt-0.5">{rec.domain_note}</p>
+            </div>
+          </div>
+        )}
+
         {/* VERDICT HERO */}
-        <div className={`p-6 rounded-xl border ${isTheft
+        <div className={`p-6 rounded-xl border mb-4 ${isTheft
           ? 'border-red-500/40 bg-gradient-to-br from-red-500/10 to-transparent'
           : 'border-emerald-500/40 bg-gradient-to-br from-emerald-500/10 to-transparent'
           }`}>
@@ -371,11 +436,13 @@ function SingleLayout({ snapshot, slug }: { snapshot: any; slug: string }) {
           </div>
         </div>
 
+       
+
         {/* ROW 1: tree votes | probabilities | metadata */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-3 mb-5 gap-6">
 
           {/* tree votes */}
-          <div className="bg-white/5 border border-white/10 rounded-xl p-5">
+          <div className="bg-white/5 border border-white/10 rounded-xl p-6">
             <h3 className="text-[10px] font-bold text-white/40 tracking-widest mb-4">DECISION FOREST</h3>
             {rec?.tree_votes ? (
               <div className="space-y-4">
@@ -405,7 +472,7 @@ function SingleLayout({ snapshot, slug }: { snapshot: any; slug: string }) {
           </div>
 
           {/* probabilities */}
-          <div className="bg-white/5 border border-white/10 rounded-xl p-5">
+          <div className="bg-white/5 border border-white/10 rounded-xl p-6">
             <h3 className="text-[10px] font-bold text-white/40 tracking-widests mb-4">CLASS PROBABILITIES</h3>
             {rec?.probabilities ? (
               <div className="space-y-4 mt-2">
@@ -434,7 +501,7 @@ function SingleLayout({ snapshot, slug }: { snapshot: any; slug: string }) {
           </div>
 
           {/* metadata */}
-          <div className="bg-white/5 border border-white/10 rounded-xl p-5">
+          <div className="bg-white/5 border border-white/10 rounded-xl p-6">
             <h3 className="text-[10px] font-bold text-white/40 tracking-widest mb-4">RECORD METADATA</h3>
             <div className="space-y-3">
               {[
@@ -453,11 +520,11 @@ function SingleLayout({ snapshot, slug }: { snapshot: any; slug: string }) {
         </div>
 
         {/* ROW 2: radar | anomaly flags */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 mb-5 gap-6">
 
           {/* radar */}
           {rec?.features && (
-            <div className="bg-white/5 border border-white/10 rounded-xl p-5">
+            <div className="bg-white/5 border border-white/10 rounded-xl p-6">
               <h3 className="text-[10px] font-bold text-white/40 tracking-widest mb-2">CONSUMPTION FINGERPRINT</h3>
               <p className="text-[9px] text-white/30 mb-4 leading-relaxed">
                 Cyan = this record · Purple dashed = <span className="text-purple-400">{buildingClass}</span> class baseline
@@ -472,7 +539,7 @@ function SingleLayout({ snapshot, slug }: { snapshot: any; slug: string }) {
 
 
           {/* anomaly flags + baseline chart stacked */}
-          <div className="bg-white/5 border border-white/10 rounded-xl p-5 flex flex-col gap-5">
+          <div className="bg-white/5 border border-white/10 rounded-xl p-6 flex flex-col gap-6">
 
             {/* top half: flagged features bar */}
             <div>
@@ -514,7 +581,7 @@ function SingleLayout({ snapshot, slug }: { snapshot: any; slug: string }) {
 
         {/* ROW 3: feature values (full width) */}
         {rec?.features && (
-          <div className="bg-white/5 border border-white/10 rounded-xl p-5">
+          <div className="bg-white/5 border border-white/10 rounded-xl p-6">
             <h3 className="text-[10px] font-bold text-white/40 tracking-widest mb-4">INPUT FEATURE VALUES</h3>
             <FeatureComparison features={rec.features} />
           </div>
@@ -630,7 +697,7 @@ function BatchLayout({ snapshot, slug, scanId }: { snapshot: any; slug: string; 
         })()}
 
         {/* GROUP STATS */}
-        <div className="bg-white/5 border border-white/10 rounded-lg p-5">
+        <div className="bg-white/5 border border-white/10 rounded-lg p-6">
           <h3 className="text-[10px] font-bold text-white/40 tracking-wider mb-4">GROUP STATISTICS</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
             {[
@@ -647,7 +714,7 @@ function BatchLayout({ snapshot, slug, scanId }: { snapshot: any; slug: string; 
           </div>
 
           {/* charts row */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
             <div>
               <p className="text-[9px] font-bold text-white/50 tracking-wider mb-3">THEFT / NORMAL SPLIT</p>
               <TheftDonut theft={theftDetected} normal={normalCount} />

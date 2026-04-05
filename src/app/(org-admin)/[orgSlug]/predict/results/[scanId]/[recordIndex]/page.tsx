@@ -20,6 +20,49 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
 
 
+function DomainContextNote({ result, isTheft }: { result: any; isTheft: boolean }) {
+  const hasDomain = !!result?.domain_flag;
+  const hasFlags = result?.anomaly_flags?.length > 0;
+  const tier = result?.domain_tier;
+
+  const borderColor = hasDomain
+    ? tier === 'impossible' ? 'border-red-500/20 bg-red-500/5'
+      : tier === 'suspicious' ? 'border-amber-500/20 bg-amber-500/5'
+        : 'border-cyan-500/20 bg-cyan-500/5'
+    : isTheft && !hasFlags
+      ? 'border-white/10 bg-white/5'
+      : 'border-white/10 bg-white/5';
+
+  const iconColor = hasDomain
+    ? tier === 'impossible' ? 'text-red-400'
+      : tier === 'suspicious' ? 'text-amber-400'
+        : 'text-cyan-400'
+    : 'text-white/40';
+
+  const message = hasDomain
+    ? result.domain_note
+    : isTheft && !hasFlags
+      ? "No individual feature anomalies were detected — the random forest classified this record as theft based on the combined consumption signature across all 9 features simultaneously. The overall pattern deviates from what is statistically normal for this building class."
+      : isTheft && hasFlags
+        ? `${result.anomaly_flags.length} feature${result.anomaly_flags.length > 1 ? 's' : ''} deviate significantly from the class baseline and likely contributed to the theft classification. See anomaly flags below for details.`
+        : !isTheft && hasFlags
+          ? "Statistical deviations were detected in some features, but the random forest classified this record as normal based on the overall consumption pattern. Individual deviations do not necessarily indicate theft."
+          : "All features are within normal statistical range for this building class. The random forest found no theft signature in the overall consumption pattern.";
+
+  return (
+    <div className={`flex items-start gap-3 p-4 rounded-lg border mb-5 ${borderColor}`}>
+      <Info size={13} className={`mt-0.5 shrink-0 ${iconColor}`} />
+      <div className="flex-1">
+        {hasDomain && (
+          <span className={`text-[9px] font-bold tracking-widest mr-2 ${iconColor}`}>
+            {result.domain_flag} ·{' '}
+          </span>
+        )}
+        <span className="text-[10px] text-white/50 leading-relaxed">{message}</span>
+      </div>
+    </div>
+  );
+}
 
 // ─── Tree Votes ──────────────────────────────────────────────────────────────
 function TreeVotesBar({ votes }: { votes: { theft: number; normal: number; total: number } }) {
@@ -380,7 +423,7 @@ export default function RecordDrilldownPage({
 
       {/*record export root*/}
       <div id="record-export-root">
-        <div className={`p-6 rounded-xl border ${isTheft
+        <div className={`p-6 rounded-xl mb-5 border ${isTheft
           ? 'border-red-500/40 bg-gradient-to-br from-red-500/10 to-transparent'
           : 'border-emerald-500/40 bg-gradient-to-br from-emerald-500/10 to-transparent'
           }`}>
@@ -415,7 +458,25 @@ export default function RecordDrilldownPage({
           </div>
         </div>
 
-
+        {/* DOMAIN CONTEXT STRIP */}
+        {record?.domain_flag && (
+          <div className={`flex items-start gap-3 p-4 rounded-lg border mb-5 ${record.domain_tier === 'impossible' ? 'border-red-500/20 bg-red-500/5'
+              : record.domain_tier === 'suspicious' ? 'border-amber-500/20 bg-amber-500/5'
+                : 'border-cyan-500/20 bg-cyan-500/5'
+            }`}>
+            <Info size={13} className={`mt-0.5 shrink-0 ${record.domain_tier === 'impossible' ? 'text-red-400'
+                : record.domain_tier === 'suspicious' ? 'text-amber-400'
+                  : 'text-cyan-400'
+              }`} />
+            <div>
+              <span className={`text-[9px] font-bold tracking-widest ${record.domain_tier === 'impossible' ? 'text-red-400'
+                  : record.domain_tier === 'suspicious' ? 'text-amber-400'
+                    : 'text-cyan-400'
+                }`}>{record.domain_flag}</span>
+              <p className="text-[10px] text-white/50 leading-relaxed mt-0.5">{record.domain_note}</p>
+            </div>
+          </div>
+        )}
         {/* MAIN GRID */}
         {/* ROW 1: tree votes | probabilities | metadata */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
