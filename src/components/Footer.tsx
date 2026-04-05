@@ -40,8 +40,8 @@ export default function SudarshanFooter() {
           { id: 'home', name: 'HOME', href: '/' },
           { id: 'dashboard', name: 'OVERVIEW', href: `/${activeSlug}` },
           { id: 'predict', name: 'THEFT_DETECTION', href: `/${activeSlug}/predict` },
-          { id: 'metrics', name: 'MODEL_METRICS', href: `/${activeSlug}/metrics` }, // FIXED TO /metrics
-          { id: 'logs', name: 'CONSUMPTION_LOGS',  href: `/${activeSlug}/logs` },
+          { id: 'metrics', name: 'MODEL_METRICS', href: `/${activeSlug}/metrics` }, 
+          { id: 'logs', name: 'PREDICTION_HISTORY',  href: `/${activeSlug}/pred_history` },
           { id: 'settings', name: 'SETTINGS', href: `/${activeSlug}/settings` },
         ];
       }

@@ -3,6 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import { Database, Search, Filter, ExternalLink, ShieldAlert, CheckCircle, Loader2, ChevronRight, Download } from 'lucide-react';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
+
+
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
@@ -23,8 +26,9 @@ function exportLogsToCsv(logs: any[], filename: string) {
 }
 
 
-export default function ConsumptionLogs({ params }: { params: { orgSlug: string } }) {
-  const slug = params.orgSlug || 'demo-utility';
+export default function ConsumptionLogs() {
+  const params = useParams();
+  const slug = (params.orgSlug as string) || 'demo-utility';
   const [searchTerm, setSearchTerm] = useState('');
   const [scanHistory, setScanHistory] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);

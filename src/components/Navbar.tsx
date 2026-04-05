@@ -64,11 +64,7 @@ export default function SudarshanNavbar() {
           ]
         },
         { 
-          id: 'logs', label: 'CONSUMPTION_LOGS', icon: Database, href: `/${activeSlug}/logs`,
-          subLinks: [
-            { label: 'Raw Data', href: `/${activeSlug}/logs`, icon: Database },
-            { label: 'Export CSV', href: `/${activeSlug}/logs`, icon: Download }
-          ]
+          id: 'logs', label: 'PREDICTION_HISTORY', icon: Database, href: `/${activeSlug}/pred_history`,
         },
         { id: 'settings', label: 'SETTINGS', icon: Settings, href: `/${activeSlug}/settings` },
       ];
